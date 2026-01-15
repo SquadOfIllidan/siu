@@ -1,0 +1,14 @@
+/bitrix/
+.access.php
+.htaccess
+.section.php
+composer.lock
+composer.json
+urlrewrite.php
+favicon.ico
+.osp
+images
+upload
+vendor
+
+!.idea
