@@ -6616,3 +6616,25 @@ html._desktop .help-link:focus-visible, html._desktop .help-link:hover {
 .page._shops .page__cart {
     margin-left: auto
 }
+
+.menu-item a{
+    color: black;
+    background: white;
+    border: 1px solid transparent;
+    padding: 10px 25px;
+    border-radius: 25px;
+    font-weight: 500;
+    font-size: 1em;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    align-items: center;
+    gap: 10px;
+    white-space: nowrap;
+    text-decoration: none
+}
+
+.menu-item a:hover{
+    background: rgba(255,255,255,0.2);
+    border-color: rgba(255,255,255,0.3);
+    transform: translateY(-2px);
+}

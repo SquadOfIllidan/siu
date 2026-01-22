@@ -1,162 +1,559 @@
-<?
-require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
-$APPLICATION->SetTitle("Интернет-магазин \"Одежда\"");
-?>
-<?if (IsModuleInstalled("advertising")):?>
-	<div class="mb-5">
-		<?$APPLICATION->IncludeComponent(
-			"bitrix:advertising.banner",
-			"bootstrap_v4",
-			array(
-				"COMPONENT_TEMPLATE" => "bootstrap_v4",
-				"TYPE" => "MAIN",
-				"NOINDEX" => "Y",
-				"QUANTITY" => "3",
-				"BS_EFFECT" => "fade",
-				"BS_CYCLING" => "N",
-				"BS_WRAP" => "Y",
-				"BS_PAUSE" => "Y",
-				"BS_KEYBOARD" => "Y",
-				"BS_ARROW_NAV" => "Y",
-				"BS_BULLET_NAV" => "Y",
-				"BS_HIDE_FOR_TABLETS" => "N",
-				"BS_HIDE_FOR_PHONES" => "Y",
-				"CACHE_TYPE" => "A",
-				"CACHE_TIME" => "36000000",
-			),
-			false
-		);?>
-	</div>
-<?endif?>
+<?php
+require($_SERVER["DOCUMENT_ROOT"] . "/bitrix/header.php");
+use Bitrix\Main\Mail\Event;
+use Bitrix\Main\Application;
 
-<?
-global $trendFilter;
-$trendFilter = array('PROPERTY_TREND' => '4');
+$application = Application::getInstance();
+$APPLICATION->SetTitle("Главная");
+
+
+
+//Event::sendImmediate([
+//    "EVENT_NAME" => "MAIL_FORM",          // Тип почтового события
+//    "LID" => "s1",
+//    'MESSAGE_ID' => 86,
+//    "C_FIELDS" => [
+//        "EMAIL_TO" => "vladislav.kuzovov@mail.ru",
+//        "TEXT" => "Это основной текст сообщения, который будет отображен в письме.",
+//    ],
+//]);
+
 ?>
-<h2>Тренды сезона</h2>
-<?$APPLICATION->IncludeComponent(
-	"bitrix:catalog.section",
-	"bootstrap_v4",
-	array(
-		"IBLOCK_TYPE_ID" => "catalog",
-		"IBLOCK_ID" => "2",
-		"BASKET_URL" => "/personal/cart/",
-		"COMPONENT_TEMPLATE" => "",
-		"IBLOCK_TYPE" => "catalog",
-		"SECTION_ID" => $_REQUEST["SECTION_ID"],
-		"SECTION_CODE" => "",
-		"SECTION_USER_FIELDS" => array(
-			0 => "",
-			1 => "",
-		),
-		"ELEMENT_SORT_FIELD" => "sort",
-		"ELEMENT_SORT_ORDER" => "desc",
-		"ELEMENT_SORT_FIELD2" => "id",
-		"ELEMENT_SORT_ORDER2" => "desc",
-		"FILTER_NAME" => "trendFilter",
-		"INCLUDE_SUBSECTIONS" => "Y",
-		"SHOW_ALL_WO_SECTION" => "Y",
-		"HIDE_NOT_AVAILABLE" => "N",
-		"PAGE_ELEMENT_COUNT" => "12",
-		"LINE_ELEMENT_COUNT" => "3",
-		"PROPERTY_CODE" => array(
-			0 => "NEWPRODUCT",
-			1 => "",
-		),
-		"OFFERS_FIELD_CODE" => array(
-			0 => "",
-			1 => "",
-		),
-		"OFFERS_PROPERTY_CODE" => array(
-			0 => "COLOR_REF",
-			1 => "SIZES_SHOES",
-			2 => "SIZES_CLOTHES",
-			3 => "",
-		),
-		"OFFERS_SORT_FIELD" => "sort",
-		"OFFERS_SORT_ORDER" => "desc",
-		"OFFERS_SORT_FIELD2" => "id",
-		"OFFERS_SORT_ORDER2" => "desc",
-		"TEMPLATE_THEME" => "site",
-		"PRODUCT_DISPLAY_MODE" => "Y",
-		"ADD_PICT_PROP" => "MORE_PHOTO",
-		"LABEL_PROP" => array(
-			0 => "NEWPRODUCT"
-		),
-		"OFFER_ADD_PICT_PROP" => "-",
-		"OFFER_TREE_PROPS" => array(
-			0 => "COLOR_REF",
-			1 => "SIZES_SHOES",
-			2 => "SIZES_CLOTHES",
-		),
-		"PRODUCT_SUBSCRIPTION" => "N",
-		"SHOW_DISCOUNT_PERCENT" => "N",
-		"SHOW_OLD_PRICE" => "Y",
-		"SHOW_CLOSE_POPUP" => "N",
-		"MESS_BTN_BUY" => "Купить",
-		"MESS_BTN_ADD_TO_BASKET" => "В корзину",
-		"MESS_BTN_SUBSCRIBE" => "Подписаться",
-		"MESS_BTN_DETAIL" => "Подробнее",
-		"MESS_NOT_AVAILABLE" => "Нет в наличии",
-		"SECTION_URL" => "",
-		"DETAIL_URL" => "",
-		"SECTION_ID_VARIABLE" => "SECTION_ID",
-		"SEF_MODE" => "N",
-		"AJAX_MODE" => "N",
-		"AJAX_OPTION_JUMP" => "N",
-		"AJAX_OPTION_STYLE" => "Y",
-		"AJAX_OPTION_HISTORY" => "N",
-		"AJAX_OPTION_ADDITIONAL" => "",
-		"CACHE_TYPE" => "A",
-		"CACHE_TIME" => "36000000",
-		"CACHE_GROUPS" => "Y",
-		"SET_TITLE" => "Y",
-		"SET_BROWSER_TITLE" => "Y",
-		"BROWSER_TITLE" => "-",
-		"SET_META_KEYWORDS" => "Y",
-		"META_KEYWORDS" => "-",
-		"SET_META_DESCRIPTION" => "Y",
-		"META_DESCRIPTION" => "-",
-		"SET_LAST_MODIFIED" => "N",
-		"USE_MAIN_ELEMENT_SECTION" => "N",
-		"ADD_SECTIONS_CHAIN" => "N",
-		"CACHE_FILTER" => "N",
-		"ACTION_VARIABLE" => "action",
-		"PRODUCT_ID_VARIABLE" => "id",
-		"PRICE_CODE" => array(
-			0 => "BASE",
-		),
-		"USE_PRICE_COUNT" => "N",
-		"SHOW_PRICE_COUNT" => "1",
-		"PRICE_VAT_INCLUDE" => "Y",
-		"CONVERT_CURRENCY" => "N",
-		"USE_PRODUCT_QUANTITY" => "N",
-		"PRODUCT_QUANTITY_VARIABLE" => "",
-		"ADD_PROPERTIES_TO_BASKET" => "Y",
-		"PRODUCT_PROPS_VARIABLE" => "prop",
-		"PARTIAL_PRODUCT_PROPERTIES" => "N",
-		"PRODUCT_PROPERTIES" => array(
-		),
-		"OFFERS_CART_PROPERTIES" => array(
-			0 => "COLOR_REF",
-			1 => "SIZES_SHOES",
-			2 => "SIZES_CLOTHES",
-		),
-		"ADD_TO_BASKET_ACTION" => "ADD",
-		"PAGER_TEMPLATE" => "round",
-		"DISPLAY_TOP_PAGER" => "N",
-		"DISPLAY_BOTTOM_PAGER" => "Y",
-		"PAGER_TITLE" => "Товары",
-		"PAGER_SHOW_ALWAYS" => "N",
-		"PAGER_DESC_NUMBERING" => "N",
-		"PAGER_DESC_NUMBERING_CACHE_TIME" => "36000",
-		"PAGER_SHOW_ALL" => "N",
-		"PAGER_BASE_LINK_ENABLE" => "N",
-		"SET_STATUS_404" => "N",
-		"SHOW_404" => "N",
-		"MESSAGE_404" => "",
-		"COMPATIBLE_MODE" => "N",
-	),
-	false
-);?>
-<?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php");?>
+
+
+
+    <section class="hero page__hero">
+        <div class="hero__content">
+            <h2 class="hero__title text-title">Flawsome <span>Eau de&nbsp;Parfum</span></h2>
+            <p class="hero__description">Минеральный, интимный, прозрачный, комплиментарный аромат, созданный на
+                основе амброксана.</p>
+
+            <a class="button hero__link _anim _b-top _space-between" href="/good.html">
+                <span class="button__text">Купить сейчас</span>
+            </a>
+
+        </div>
+        <div class="hero__image-block">
+            <picture class="hero__picture" data-parallax-image-block>
+                <img class="hero__image" src="<?= SITE_TEMPLATE_PATH ?>/assets/images/hero/hero-bg.jpg"
+                     srcset="<?= SITE_TEMPLATE_PATH ?>/assets/images/hero/hero-bg@2x.jpg 2x" width="720" height="750"
+                     alt="">
+            </picture>
+            <div class="hero__elem">
+                <picture>
+                    <img class="hero__elem-image" src="<?= SITE_TEMPLATE_PATH ?>/assets/images/hero/hero-elem.png"
+                         srcset="<?= SITE_TEMPLATE_PATH ?>/assets/images/hero/hero-elem@2x.png 2x" width="400"
+                         height="400" alt="">
+                </picture>
+            </div>
+        </div>
+    </section>
+
+    <section class="popular-goods page__popular-goods">
+
+        <div class="slider swiper" data-slider data-slider-navigation data-slider-pagination>
+            <h3 class="text-bascerville popular-goods__title">Самое популярное</h3>
+            <div class="swiper-wrapper">
+                <div class="good page__good swiper-slide" data-good data-good-category="Eau de Parfum">
+                    <a class="good__link-wrap" href="/good.html">
+                        <picture class="good__picture">
+                            <img class="good__img full-size-img"
+                                 src="<?= SITE_TEMPLATE_PATH ?>/assets/images/body-fragrances/slide-1-parfum.png"
+                                 srcset="<?= SITE_TEMPLATE_PATH ?>/assets/images/body-fragrances/slide-1-parfum@2x.png 2x"
+                                 width="240" height="240" alt="" loading="lazy" data-good-image>
+                        </picture>
+                        <picture class="good__picture-cover">
+                            <img class="good__img-cover full-size-img"
+                                 src="<?= SITE_TEMPLATE_PATH ?>/assets/images/body-fragrances/slide-1-cover.jpg"
+                                 srcset="<?= SITE_TEMPLATE_PATH ?>/assets/images/body-fragrances/slide-1-cover@2x.jpg 2x"
+                                 width="460" height="" alt="" loading="lazy">
+                        </picture>
+                        <p class="good__subtitle" data-good-name>EUNOIA</p>
+                        <p class="good__description"><span>Белые цветы, альдегиды, амбра, мускус</span><span
+                                    data-good-volume>50 мл</span></p>
+                    </a>
+                    <div class="good__info">
+
+                        <button class="button good__link _b-top _f-start _anim _cart-add" type="button" data-good-add
+                                data-popup-opener="cart" data-popup-opener-delay="1">
+                            <span class="button__text">Добавить в корзину</span>
+                        </button>
+
+                        <p class="good__price" data-price data-good-price>6 900 ₽</p>
+                    </div>
+                </div>
+
+                <div class="good page__good swiper-slide" data-good data-good-category="Eau de Parfum">
+                    <a class="good__link-wrap" href="/good.html">
+                        <picture class="good__picture">
+                            <img class="good__img full-size-img"
+                                 src="<?= SITE_TEMPLATE_PATH ?>/assets/images/body-fragrances/slide-1-parfum.png"
+                                 srcset="<?= SITE_TEMPLATE_PATH ?>/assets/images/body-fragrances/slide-1-parfum@2x.png 2x"
+                                 width="240" height="240" alt="" loading="lazy" data-good-image>
+                        </picture>
+                        <picture class="good__picture-cover">
+                            <img class="good__img-cover full-size-img"
+                                 src="<?= SITE_TEMPLATE_PATH ?>/assets/images/body-fragrances/slide-2-cover.jpg"
+                                 srcset="<?= SITE_TEMPLATE_PATH ?>/assets/images/body-fragrances/slide-2-cover@2x.jpg 2x"
+                                 width="460" height="" alt="" loading="lazy">
+                        </picture>
+                        <p class="good__subtitle" data-good-name>HYGGE</p>
+                        <p class="good__description"><span>Дерево, смола, ваниль</span><span
+                                    data-good-volume>50 мл</span></p>
+                    </a>
+                    <div class="good__info">
+
+                        <button class="button good__link _b-top _f-start _anim _cart-add" type="button" data-good-add
+                                data-popup-opener="cart" data-popup-opener-delay="1">
+                            <span class="button__text">Добавить в корзину</span>
+                        </button>
+
+                        <p class="good__price" data-price data-good-price>6 900 ₽</p>
+                    </div>
+                </div>
+
+                <div class="good page__good swiper-slide" data-good data-good-category="Eau de Parfum">
+                    <a class="good__link-wrap" href="/good.html">
+                        <picture class="good__picture">
+                            <img class="good__img full-size-img"
+                                 src="<?= SITE_TEMPLATE_PATH ?>/assets/images/body-fragrances/slide-1-parfum.png"
+                                 srcset="<?= SITE_TEMPLATE_PATH ?>/assets/images/body-fragrances/slide-1-parfum@2x.png 2x"
+                                 width="240" height="240" alt="" loading="lazy" data-good-image>
+                        </picture>
+                        <picture class="good__picture-cover">
+                            <img class="good__img-cover full-size-img"
+                                 src="<?= SITE_TEMPLATE_PATH ?>/assets/images/body-fragrances/slide-3-cover.jpg"
+                                 srcset="<?= SITE_TEMPLATE_PATH ?>/assets/images/body-fragrances/slide-3-cover@2x.jpg 2x"
+                                 width="460" height="" alt="" loading="lazy">
+                        </picture>
+                        <p class="good__subtitle" data-good-name>KEFI</p>
+                        <p class="good__description"><span>Манго, маракуйя, ваниль, пион</span><span data-good-volume>50 мл</span>
+                        </p>
+                    </a>
+                    <div class="good__info">
+
+                        <button class="button good__link _b-top _f-start _anim _cart-add" type="button" data-good-add
+                                data-popup-opener="cart" data-popup-opener-delay="1">
+                            <span class="button__text">Добавить в корзину</span>
+                        </button>
+
+                        <p class="good__price" data-price data-good-price>6 900 ₽</p>
+                    </div>
+                </div>
+
+                <div class="good page__good swiper-slide" data-good data-good-category="Eau de Parfum">
+                    <a class="good__link-wrap" href="/good.html">
+                        <picture class="good__picture">
+                            <img class="good__img full-size-img"
+                                 src="<?= SITE_TEMPLATE_PATH ?>/assets/images/body-fragrances/slide-1-parfum.png"
+                                 srcset="<?= SITE_TEMPLATE_PATH ?>/assets/images/body-fragrances/slide-1-parfum@2x.png 2x"
+                                 width="240" height="240" alt="" loading="lazy" data-good-image>
+                        </picture>
+                        <picture class="good__picture-cover">
+                            <img class="good__img-cover full-size-img"
+                                 src="<?= SITE_TEMPLATE_PATH ?>/assets/images/body-fragrances/slide-1-cover.jpg"
+                                 srcset="<?= SITE_TEMPLATE_PATH ?>/assets/images/body-fragrances/slide-1-cover@2x.jpg 2x"
+                                 width="460" height="" alt="" loading="lazy">
+                        </picture>
+                        <p class="good__subtitle" data-good-name>EUNOIA</p>
+                        <p class="good__description"><span>Белые цветы, альдегиды, амбра, мускус</span><span
+                                    data-good-volume>50 мл</span></p>
+                    </a>
+                    <div class="good__info">
+
+                        <button class="button good__link _b-top _f-start _anim _cart-add" type="button" data-good-add
+                                data-popup-opener="cart" data-popup-opener-delay="1">
+                            <span class="button__text">Добавить в корзину</span>
+                        </button>
+
+                        <p class="good__price" data-price data-good-price>6 900 ₽</p>
+                    </div>
+                </div>
+
+                <div class="good page__good swiper-slide" data-good data-good-category="Eau de Parfum">
+                    <a class="good__link-wrap" href="/good.html">
+                        <picture class="good__picture">
+                            <img class="good__img full-size-img"
+                                 src="<?= SITE_TEMPLATE_PATH ?>/assets/images/body-fragrances/slide-1-parfum.png"
+                                 srcset="<?= SITE_TEMPLATE_PATH ?>/assets/images/body-fragrances/slide-1-parfum@2x.png 2x"
+                                 width="240" height="240" alt="" loading="lazy" data-good-image>
+                        </picture>
+                        <picture class="good__picture-cover">
+                            <img class="good__img-cover full-size-img"
+                                 src="<?= SITE_TEMPLATE_PATH ?>/assets/images/body-fragrances/slide-2-cover.jpg"
+                                 srcset="<?= SITE_TEMPLATE_PATH ?>/assets/images/body-fragrances/slide-2-cover@2x.jpg 2x"
+                                 width="460" height="" alt="" loading="lazy">
+                        </picture>
+                        <p class="good__subtitle" data-good-name>HYGGE</p>
+                        <p class="good__description"><span>Дерево, смола, ваниль</span><span
+                                    data-good-volume>50 мл</span></p>
+                    </a>
+                    <div class="good__info">
+
+                        <button class="button good__link _b-top _f-start _anim _cart-add" type="button" data-good-add
+                                data-popup-opener="cart" data-popup-opener-delay="1">
+                            <span class="button__text">Добавить в корзину</span>
+                        </button>
+
+                        <p class="good__price" data-price data-good-price>6 900 ₽</p>
+                    </div>
+                </div>
+
+                <div class="good page__good swiper-slide" data-good data-good-category="Eau de Parfum">
+                    <a class="good__link-wrap" href="/good.html">
+                        <picture class="good__picture">
+                            <img class="good__img full-size-img"
+                                 src="<?= SITE_TEMPLATE_PATH ?>/assets/images/body-fragrances/slide-1-parfum.png"
+                                 srcset="<?= SITE_TEMPLATE_PATH ?>/assets/images/body-fragrances/slide-1-parfum@2x.png 2x"
+                                 width="240" height="240" alt="" loading="lazy" data-good-image>
+                        </picture>
+                        <picture class="good__picture-cover">
+                            <img class="good__img-cover full-size-img"
+                                 src="<?= SITE_TEMPLATE_PATH ?>/assets/images/body-fragrances/slide-3-cover.jpg"
+                                 srcset="<?= SITE_TEMPLATE_PATH ?>/assets/images/body-fragrances/slide-3-cover@2x.jpg 2x"
+                                 width="460" height="" alt="" loading="lazy">
+                        </picture>
+                        <p class="good__subtitle" data-good-name>KEFI</p>
+                        <p class="good__description"><span>Манго, маракуйя, ваниль, пион</span><span data-good-volume>50 мл</span>
+                        </p>
+                    </a>
+                    <div class="good__info">
+
+                        <button class="button good__link _b-top _f-start _anim _cart-add" type="button" data-good-add
+                                data-popup-opener="cart" data-popup-opener-delay="1">
+                            <span class="button__text">Добавить в корзину</span>
+                        </button>
+
+                        <p class="good__price" data-price data-good-price>6 900 ₽</p>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="slider__navigation-wrapper">
+
+                <button class="button swiper-button-prev slider__button-prev" type="button" aria-label="Prev">
+                </button>
+
+                <button class="button swiper-button-next slider__button-next" type="button" aria-label="Next">
+                </button>
+
+            </div>
+            <div class="swiper-pagination slider__pagination-wrapper"></div>
+        </div>
+
+    </section>
+
+    <section class="categories page__categories">
+        <div class="categories__item _background-dark">
+            <a class="categories__link" href="/category.html">
+                <picture class="categories__picture">
+                    <img class="categories__image"
+                         src="<?= SITE_TEMPLATE_PATH ?>/assets/images/categories/category-1.jpg"
+                         srcset="<?= SITE_TEMPLATE_PATH ?>/assets/images/categories/category-1@2x.jpg 2x" width="720"
+                         height="720" alt="">
+                </picture>
+                <h2 class="categories__title text-title">Ароматы <br> для тела</h2>
+
+                <button class="button categories__button _b-top" type="button">
+                    <span class="button__text">Подробнее</span>
+                </button>
+
+            </a>
+        </div>
+        <div class="categories__item _background-light">
+            <a class="categories__link" href="#">
+                <picture class="categories__picture">
+                    <img class="categories__image"
+                         src="<?= SITE_TEMPLATE_PATH ?>/assets/images/categories/category-2.jpg"
+                         srcset="<?= SITE_TEMPLATE_PATH ?>/assets/images/categories/category-2@2x.jpg 2x" width="720"
+                         height="720" alt="">
+                </picture>
+                <h2 class="categories__title text-title">Диффузоры</h2>
+
+                <button class="button categories__button _b-top" type="button">
+                    <span class="button__text">Подробнее</span>
+                </button>
+
+            </a>
+        </div>
+    </section>
+
+    <section class="brand-mission page__brand-mission" data-brand-mission>
+        <div class="brand-mission__content">
+            <h2 class="brand-mission__title" data-brand-mission-title
+                data-lottie-animation="/<?= SITE_TEMPLATE_PATH ?>/assets/jsons/SIU.json">
+            </h2>
+            <div class="brand-mission__slider swiper">
+                <ul class="brand-mission__list swiper-wrapper">
+                    <li class="brand-mission__item swiper-slide" data-brand-item>
+                        <picture>
+                            <img class="brand-mission__image"
+                                 src="<?= SITE_TEMPLATE_PATH ?>/assets/images/brand-mission/brand-mission-1.jpg"
+                                 srcset="<?= SITE_TEMPLATE_PATH ?>/assets/images/brand-mission/brand-mission-1@2x.jpg 2x"
+                                 width="220" height="360" alt="">
+                        </picture>
+                        <p class="brand-mission__description">
+                            <sup>[1]</sup>
+                            Ты - Вселенная. <br> Внутри тебя целый мир.
+                        </p>
+                    </li>
+                    <li class="brand-mission__item swiper-slide" data-brand-item>
+                        <picture>
+                            <img class="brand-mission__image"
+                                 src="<?= SITE_TEMPLATE_PATH ?>/assets/images/brand-mission/brand-mission-2.jpg"
+                                 srcset="<?= SITE_TEMPLATE_PATH ?>/assets/images/brand-mission/brand-mission-2@2x.jpg 2x"
+                                 width="220" height="360" alt="">
+                        </picture>
+                        <p class="brand-mission__description">
+                            <sup>[2]</sup>
+                            Посмотри на своё отражение в зеркале. Ты прекрасна.
+                        </p>
+                    </li>
+                    <li class="brand-mission__item swiper-slide" data-brand-item>
+                        <picture>
+                            <img class="brand-mission__image"
+                                 src="<?= SITE_TEMPLATE_PATH ?>/assets/images/brand-mission/brand-mission-2.jpg"
+                                 srcset="<?= SITE_TEMPLATE_PATH ?>/assets/images/brand-mission/brand-mission-2@2x.jpg 2x"
+                                 width="220" height="360" alt="">
+                        </picture>
+                        <p class="brand-mission__description">
+                            <sup>[3]</sup>
+                            Мы лишь поможем подчеркнуть твою природную красоту. Ментальное и физическое здоровье - наш
+                            главный приоритет.
+                        </p>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <a class="button brand-mission__link _anim _b-top _space-between" href="/about.html">
+            <span class="button__text">Миссия бренда</span>
+        </a>
+
+    </section>
+
+    <section class="body-fragrances page__body-fragrances">
+
+        <div class="slider swiper" data-slider data-slider-navigation data-slider-pagination>
+            <h3 class="text-bascerville body-fragrances__title">Ароматы для тела</h3>
+            <div class="swiper-wrapper">
+                <div class="good page__good swiper-slide" data-good data-good-category="">
+                    <a class="good__link-wrap" href="/good.html">
+                        <picture class="good__picture">
+                            <img class="good__img full-size-img"
+                                 src="<?= SITE_TEMPLATE_PATH ?>/assets/images/body-fragrances/slide-1-parfum.png"
+                                 srcset="<?= SITE_TEMPLATE_PATH ?>/assets/images/body-fragrances/slide-1-parfum@2x.png 2x"
+                                 width="240" height="240" alt="" loading="lazy" data-good-image>
+                        </picture>
+                        <picture class="good__picture-cover">
+                            <img class="good__img-cover full-size-img"
+                                 src="<?= SITE_TEMPLATE_PATH ?>/assets/images/body-fragrances/slide-1-cover.jpg"
+                                 srcset="<?= SITE_TEMPLATE_PATH ?>/assets/images/body-fragrances/slide-1-cover@2x.jpg 2x"
+                                 width="460" height="" alt="" loading="lazy">
+                        </picture>
+                        <p class="good__subtitle" data-good-name>EUNOIA</p>
+                        <p class="good__description"><span>Белые цветы, альдегиды, амбра, мускус</span><span
+                                    data-good-volume>50 мл</span></p>
+                    </a>
+                    <div class="good__info">
+
+                        <button class="button good__link _b-top _f-start _anim _cart-add" type="button" data-good-add
+                                data-popup-opener="cart" data-popup-opener-delay="1">
+                            <span class="button__text">Добавить в корзину</span>
+                        </button>
+
+                        <p class="good__price" data-price data-good-price>6 900 ₽</p>
+                    </div>
+                </div>
+
+                <div class="good page__good swiper-slide" data-good data-good-category="">
+                    <a class="good__link-wrap" href="/good.html">
+                        <picture class="good__picture">
+                            <img class="good__img full-size-img"
+                                 src="<?= SITE_TEMPLATE_PATH ?>/assets/images/body-fragrances/slide-1-parfum.png"
+                                 srcset="<?= SITE_TEMPLATE_PATH ?>/assets/images/body-fragrances/slide-1-parfum@2x.png 2x"
+                                 width="240" height="240" alt="" loading="lazy" data-good-image>
+                        </picture>
+                        <picture class="good__picture-cover">
+                            <img class="good__img-cover full-size-img"
+                                 src="<?= SITE_TEMPLATE_PATH ?>/assets/images/body-fragrances/slide-2-cover.jpg"
+                                 srcset="<?= SITE_TEMPLATE_PATH ?>/assets/images/body-fragrances/slide-2-cover@2x.jpg 2x"
+                                 width="460" height="" alt="" loading="lazy">
+                        </picture>
+                        <p class="good__subtitle" data-good-name>HYGGE</p>
+                        <p class="good__description"><span>Дерево, смола, ваниль</span><span
+                                    data-good-volume>50 мл</span></p>
+                    </a>
+                    <div class="good__info">
+
+                        <button class="button good__link _b-top _f-start _anim _cart-add" type="button" data-good-add
+                                data-popup-opener="cart" data-popup-opener-delay="1">
+                            <span class="button__text">Добавить в корзину</span>
+                        </button>
+
+                        <p class="good__price" data-price data-good-price>6 900 ₽</p>
+                    </div>
+                </div>
+
+                <div class="good page__good swiper-slide" data-good data-good-category="">
+                    <a class="good__link-wrap" href="/good.html">
+                        <picture class="good__picture">
+                            <img class="good__img full-size-img"
+                                 src="<?= SITE_TEMPLATE_PATH ?>/assets/images/body-fragrances/slide-1-parfum.png"
+                                 srcset="<?= SITE_TEMPLATE_PATH ?>/assets/images/body-fragrances/slide-1-parfum@2x.png 2x"
+                                 width="240" height="240" alt="" loading="lazy" data-good-image>
+                        </picture>
+                        <picture class="good__picture-cover">
+                            <img class="good__img-cover full-size-img"
+                                 src="<?= SITE_TEMPLATE_PATH ?>/assets/images/body-fragrances/slide-3-cover.jpg"
+                                 srcset="<?= SITE_TEMPLATE_PATH ?>/assets/images/body-fragrances/slide-3-cover@2x.jpg 2x"
+                                 width="460" height="" alt="" loading="lazy">
+                        </picture>
+                        <p class="good__subtitle" data-good-name>KEFI</p>
+                        <p class="good__description"><span>Манго, маракуйя, ваниль, пион</span><span data-good-volume>50 мл</span>
+                        </p>
+                    </a>
+                    <div class="good__info">
+
+                        <button class="button good__link _b-top _f-start _anim _cart-add" type="button" data-good-add
+                                data-popup-opener="cart" data-popup-opener-delay="1">
+                            <span class="button__text">Добавить в корзину</span>
+                        </button>
+
+                        <p class="good__price" data-price data-good-price>6 900 ₽</p>
+                    </div>
+                </div>
+
+                <div class="good page__good swiper-slide" data-good data-good-category="">
+                    <a class="good__link-wrap" href="/good.html">
+                        <picture class="good__picture">
+                            <img class="good__img full-size-img"
+                                 src="<?= SITE_TEMPLATE_PATH ?>/assets/images/body-fragrances/slide-1-parfum.png"
+                                 srcset="<?= SITE_TEMPLATE_PATH ?>/assets/images/body-fragrances/slide-1-parfum@2x.png 2x"
+                                 width="240" height="240" alt="" loading="lazy" data-good-image>
+                        </picture>
+                        <picture class="good__picture-cover">
+                            <img class="good__img-cover full-size-img"
+                                 src="<?= SITE_TEMPLATE_PATH ?>/assets/images/body-fragrances/slide-1-cover.jpg"
+                                 srcset="<?= SITE_TEMPLATE_PATH ?>/assets/images/body-fragrances/slide-1-cover@2x.jpg 2x"
+                                 width="460" height="" alt="" loading="lazy">
+                        </picture>
+                        <p class="good__subtitle" data-good-name>EUNOIA</p>
+                        <p class="good__description"><span>Белые цветы, альдегиды, амбра, мускус</span><span
+                                    data-good-volume>50 мл</span></p>
+                    </a>
+                    <div class="good__info">
+
+                        <button class="button good__link _b-top _f-start _anim _cart-add" type="button" data-good-add
+                                data-popup-opener="cart" data-popup-opener-delay="1">
+                            <span class="button__text">Добавить в корзину</span>
+                        </button>
+
+                        <p class="good__price" data-price data-good-price>6 900 ₽</p>
+                    </div>
+                </div>
+
+                <div class="good page__good swiper-slide" data-good data-good-category="">
+                    <a class="good__link-wrap" href="/good.html">
+                        <picture class="good__picture">
+                            <img class="good__img full-size-img"
+                                 src="<?= SITE_TEMPLATE_PATH ?>/assets/images/body-fragrances/slide-1-parfum.png"
+                                 srcset="<?= SITE_TEMPLATE_PATH ?>/assets/images/body-fragrances/slide-1-parfum@2x.png 2x"
+                                 width="240" height="240" alt="" loading="lazy" data-good-image>
+                        </picture>
+                        <picture class="good__picture-cover">
+                            <img class="good__img-cover full-size-img"
+                                 src="<?= SITE_TEMPLATE_PATH ?>/assets/images/body-fragrances/slide-2-cover.jpg"
+                                 srcset="<?= SITE_TEMPLATE_PATH ?>/assets/images/body-fragrances/slide-2-cover@2x.jpg 2x"
+                                 width="460" height="" alt="" loading="lazy">
+                        </picture>
+                        <p class="good__subtitle" data-good-name>HYGGE</p>
+                        <p class="good__description"><span>Дерево, смола, ваниль</span><span
+                                    data-good-volume>50 мл</span></p>
+                    </a>
+                    <div class="good__info">
+
+                        <button class="button good__link _b-top _f-start _anim _cart-add" type="button" data-good-add
+                                data-popup-opener="cart" data-popup-opener-delay="1">
+                            <span class="button__text">Добавить в корзину</span>
+                        </button>
+
+                        <p class="good__price" data-price data-good-price>6 900 ₽</p>
+                    </div>
+                </div>
+
+                <div class="good page__good swiper-slide" data-good data-good-category="">
+                    <a class="good__link-wrap" href="/good.html">
+                        <picture class="good__picture">
+                            <img class="good__img full-size-img"
+                                 src="<?= SITE_TEMPLATE_PATH ?>/assets/images/body-fragrances/slide-1-parfum.png"
+                                 srcset="<?= SITE_TEMPLATE_PATH ?>/assets/images/body-fragrances/slide-1-parfum@2x.png 2x"
+                                 width="240" height="240" alt="" loading="lazy" data-good-image>
+                        </picture>
+                        <picture class="good__picture-cover">
+                            <img class="good__img-cover full-size-img"
+                                 src="<?= SITE_TEMPLATE_PATH ?>/assets/images/body-fragrances/slide-3-cover.jpg"
+                                 srcset="<?= SITE_TEMPLATE_PATH ?>/assets/images/body-fragrances/slide-3-cover@2x.jpg 2x"
+                                 width="460" height="" alt="" loading="lazy">
+                        </picture>
+                        <p class="good__subtitle" data-good-name>KEFI</p>
+                        <p class="good__description"><span>Манго, маракуйя, ваниль, пион</span><span data-good-volume>50 мл</span>
+                        </p>
+                    </a>
+                    <div class="good__info">
+
+                        <button class="button good__link _b-top _f-start _anim _cart-add" type="button" data-good-add
+                                data-popup-opener="cart" data-popup-opener-delay="1">
+                            <span class="button__text">Добавить в корзину</span>
+                        </button>
+
+                        <p class="good__price" data-price data-good-price>6 900 ₽</p>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="slider__navigation-wrapper">
+
+                <button class="button swiper-button-prev slider__button-prev" type="button" aria-label="Prev">
+                </button>
+
+                <button class="button swiper-button-next slider__button-next" type="button" aria-label="Next">
+                </button>
+
+            </div>
+            <div class="swiper-pagination slider__pagination-wrapper"></div>
+        </div>
+
+    </section>
+    <section class="individual-selection">
+        <div class="individual-selection__content">
+            <h2 class="individual-selection__title text-title">Индивидуальный подбор</h2>
+            <p class="individual-selection__description">Пообщайтесь с нашим экспертом онлайн, либо оставьте заявку,
+                чтобы индивидуально подобрать лучший аромат из нашей новой коллекции</p>
+
+            <a class="button individual-selection__link _b-top _space-between _anim" href="/collection.html">
+                <span class="button__text">Попробовать сейчас</span>
+            </a>
+
+        </div>
+        <picture class="individual-selection__picture">
+            <source srcset="<?= SITE_TEMPLATE_PATH ?>/assets/images/individual-selection/individual-selection-bg_mobile.jpg, <?= SITE_TEMPLATE_PATH ?>/assets/images/individual-selection/individual-selection-bg_mobile@2x.jpg 2x"
+                    media="(max-width: 740px)">
+            <img class="individual-selection__image"
+                 src="<?= SITE_TEMPLATE_PATH ?>/assets/images/individual-selection/individual-selection-bg.jpg, <?= SITE_TEMPLATE_PATH ?>/assets/images/individual-selection/individual-selection-bg_mobile@2x.jpg 2x"
+                 srcset="<?= SITE_TEMPLATE_PATH ?>/assets/images/individual-selection/individual-selection-bg@2x.jpg"
+                 width="1165" height="750" alt="">
+        </picture>
+    </section>
+
+    <button class="button _chat page__button" type="button" data-chat-button>
+        <svg class="button__icon" undefined aria-hidden="true" role="presentation">
+            <use xlink:href="#icon-chat"/>
+        </svg>
+
+    </button>
+
+<?php
+require($_SERVER["DOCUMENT_ROOT"] . "/bitrix/footer.php"); ?>

@@ -87,14 +87,16 @@ $user = CurrentUser::get();
 </head>
 
 <body class="page__body">
+<?php if($user->getLogin()): ?>
 <?php
 if ($user->isAdmin()): ?>
     <div id="panel">
-        <?
+        <?php
         $APPLICATION->ShowPanel(); ?>
     </div>
 <?php
 endif; ?>
+<?php endif; ?>
 
 <div class="page__wrapper wrapper">
 
@@ -114,11 +116,25 @@ endif; ?>
                                 <span class="arrow">▼</span>
                             </button>
                             <div class="dropdown-content">
-                                <a href="<?= $route->route('perfumes', ['sectionID' => 17]) ?>">Сладкие парфюмы</a>
-                                <a href="<?= $route->route('perfumes', ['sectionID' => 16]) ?>">Нейтральные парфюмы</a>
+                                <a href="<?= $route->route('perfumes', ['sectionID' => 16]) ?>">Сладкие парфюмы</a>
+                                <a href="<?= $route->route('perfumes', ['sectionID' => 17]) ?>">Нейтральные парфюмы</a>
                             </div>
                         </div>
                     </li>
+                    <li class="menu-item">
+                        <a href="<?= $route->route('basket') ?>">Корзина</a>
+                    </li>
+                    <li class="menu-item">
+                        <a href="<?= $route->route('user_register') ?>">Регистрация</a>
+                    </li>
+                    <li class="menu-item">
+                        <a href="<?= $route->route('user_auth') ?>">Авторизация</a>
+                    </li>
+                    <?php if($user->getLogin()): ?>
+                    <li class="menu-item">
+                        <a href="<?= $route->route('user_logout') ?>">Выйти</a>
+                    </li>
+                    <?php endif; ?>
                 </ul>
             </nav>
         </div>

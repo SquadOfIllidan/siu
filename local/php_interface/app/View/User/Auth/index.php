@@ -12,9 +12,22 @@ $token = bitrix_sessid();
 $APPLICATION->SetTitle('Авторизация');
 ?>
 
+<?php if($data): ?>
+    <?php foreach($data as $error): ?>
+
+
+        <div class="error-message">
+            <h1>Ошибка! <?= htmlspecialcharsbx($error) ?></h1>
+        </div>
+
+
+    <?php endforeach; ?>
+<?php endif; ?>
+
 <div class="auth-modern">
     <div class="form-title">Вход в систему</div>
-    <form method="post" action="<?= $route->route('user_auth') ?>">
+    <form method="post" action="<?= $route->route('user_auth_post') ?>">
+
         <input type="hidden" name="sessid" value="<?= $token ?>">
 
         <label>

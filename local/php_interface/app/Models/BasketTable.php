@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Bitrix\Main\ORM\Data\DataManager;
 use Bitrix\Main\ORM\Fields\IntegerField;
+use Bitrix\Main\ORM\Fields\StringField;
 
 class BasketTable extends DataManager
 {
@@ -19,10 +20,12 @@ class BasketTable extends DataManager
             (new IntegerField('ID'))
             ->configurePrimary()
             ->configureAutocomplete(),
-            (new IntegerField('PRODUCT_ID')),
             (new IntegerField('USER_ID')),
+            (new StringField('NAME')),
+            (new IntegerField('PRODUCT_ID')),
             (new IntegerField('QUANTITY')),
-            (new IntegerField('PRICE'))
+            (new IntegerField('PRICE')),
+            (new StringField('PREVIEW'))
         ];
     }
 

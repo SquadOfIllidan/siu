@@ -2,6 +2,8 @@
 
 namespace App\Services;
 
+use App\Models\OffersDTO;
+use App\Models\OfferDTO;
 use App\Models\PerfumesDTO;
 use App\Models\PerfumeDetailDTO;
 use App\Repositories\PerfumeRepository;
@@ -15,6 +17,58 @@ class PerfumeService
     public function __construct()
     {
         $this->perfumeRepository = new PerfumeRepository();
+    }
+
+    public function getOffer($productId): OfferDTO
+    {
+        $offer = $this->perfumeRepository->getOffer($productId);
+
+        $offerDTO = [];
+
+        foreach ($offer as $off) {
+            $filepath = Path::combine(
+                '/upload/',
+                $off['FILE_SUBDIR'],
+                $off['FILE_NAME']
+            );
+
+            $offerDTO = new OfferDTO(
+                id: $off['ID'],
+                name: $off['NAME'],
+                price: $off['PRICE_OFFER'],
+                previewPicture: $filepath
+            );
+        }
+
+        return $offerDTO;
+
+    }
+
+    public function getOffers($productId): array
+    {
+        $offers = $this->perfumeRepository->getOffers($productId);
+
+
+
+        $offersDTO = [];
+
+        foreach ($offers as $offer) {
+            $filepath = Path::combine(
+                '/upload/',
+                $offer['FILE_SUBDIR'],
+                $offer['FILE_NAME']
+            );
+
+            $offersDTO[] = new OffersDTO(
+                id: $offer['ID'],
+                name: $offer['NAME'],
+                price: $offer['PRICE_OFFER'],
+                previewPicture: $filepath
+            );
+        }
+
+        return $offersDTO;
+
     }
 
 

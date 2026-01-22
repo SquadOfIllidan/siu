@@ -13,10 +13,24 @@ $APPLICATION->SetTitle('Форма регистрации');
 
 ?>
 
+<?php if($data): ?>
+<?php foreach($data as $error): ?>
+
+
+    <div class="error-message">
+        <h1>Ошибка! <?= htmlspecialchars($error) ?></h1>
+    </div>
+
+
+<?php endforeach; ?>
+<?php endif; ?>
+
+
 <div class="registration-container">
     <h2 class="registration-title">Регистрация</h2>
 
-    <form method="post" action="<?= $route->route('user_register') ?>" class="registration-form">
+    <form method="post" action="<?= $route->route('user_register_post') ?>" class="registration-form">
+
         <input type="hidden" name="sessid" value="<?= $token ?>">
 
         <div class="form-group">
@@ -44,27 +58,6 @@ $APPLICATION->SetTitle('Форма регистрации');
             <label class="form-label">
                 Подтверждение пароля:
                 <input type="password" name="regConfirmPassword" placeholder="Подтвердите пароль" class="form-input" required>
-            </label>
-        </div>
-
-        <div class="form-group">
-            <label class="form-label">
-                Имя:
-                <input type="text" name="regName" placeholder="Введите имя" class="form-input">
-            </label>
-        </div>
-
-        <div class="form-group">
-            <label class="form-label">
-                Фамилия:
-                <input type="text" name="regSecondName" placeholder="Введите фамилию" class="form-input">
-            </label>
-        </div>
-
-        <div class="form-group">
-            <label class="form-label">
-                Отчество:
-                <input type="text" name="regLastName" placeholder="Введите отчество" class="form-input">
             </label>
         </div>
 

@@ -14,6 +14,42 @@ class PerfumeRepository
     {
     }
 
+    public function getOffer(int $offerID): array
+    {
+        return ElementSizeTable::query()
+            ->where([
+                ['ID', $offerID]
+            ])
+            ->setSelect([
+                'ID',
+                'NAME',
+                'PRICE_OFFER' => 'PRICE.PRICE',
+                'PREVIEW_PICTURE',
+                'FILE_SUBDIR' => 'FILE.SUBDIR',
+                'FILE_NAME' => 'FILE.FILE_NAME'])
+            ->registerRuntimeField(
+                new Reference(
+                    'PRICE',
+                    PriceTable::class,
+                    [
+                        '=this.ID' => 'ref.PRODUCT_ID',
+                    ],
+                    ['join_type' => 'LEFT']
+                )
+            )
+            ->registerRuntimeField(
+                new Reference(
+                    'FILE',
+                    FileTable::class,
+                    [
+                        '=this.PREVIEW_PICTURE' => 'ref.ID',
+                    ],
+                    ['join_type' => 'LEFT']
+                )
+            )
+            ->fetchAll();
+    }
+
 
 
     public function getOffers(int $productID): array
@@ -22,13 +58,29 @@ class PerfumeRepository
             ->where([
                 ['CML2_LINK.VALUE', $productID]
             ])
-            ->setSelect(['ID','NAME', 'PRICE_OFFER' => 'PRICE.PRICE'])
+            ->setSelect([
+                'ID',
+                'NAME',
+                'PRICE_OFFER' => 'PRICE.PRICE',
+                'PREVIEW_PICTURE',
+                'FILE_SUBDIR' => 'FILE.SUBDIR',
+                'FILE_NAME' => 'FILE.FILE_NAME'])
             ->registerRuntimeField(
                 new Reference(
                     'PRICE',
                     PriceTable::class,
                     [
                         '=this.ID' => 'ref.PRODUCT_ID',
+                    ],
+                    ['join_type' => 'LEFT']
+                )
+            )
+            ->registerRuntimeField(
+                new Reference(
+                    'FILE',
+                    FileTable::class,
+                    [
+                        '=this.PREVIEW_PICTURE' => 'ref.ID',
                     ],
                     ['join_type' => 'LEFT']
                 )

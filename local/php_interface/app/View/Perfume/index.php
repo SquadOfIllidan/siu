@@ -23,13 +23,13 @@ $APPLICATION->SetTitle('Парфюмы');
                 if (!empty($perfume->previewPicture)): ?>
                     <div class="image-wrapper">
                         <a href="<?= $route->route('perfume_detail', ['elementCode' => $perfume->code]) ?>">
-                            <img src="<?= htmlspecialchars($perfume->previewPicture) ?>"
-                                 alt="<?= htmlspecialchars($perfume->name) ?>">
+                            <img src="<?= htmlspecialcharsbx($perfume->previewPicture) ?>"
+                                 alt="<?= htmlspecialcharsbx($perfume->name) ?>">
                         </a>
                     </div>
                 <?php
                 endif; ?>
-                <h3 class="perfume-name"><?= htmlspecialchars($perfume->name) ?></h3>
+                <h3 class="perfume-name"><?= htmlspecialcharsbx($perfume->name) ?></h3>
             </div>
         <?php
         endforeach; ?>

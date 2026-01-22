@@ -2,17 +2,17 @@
 
 namespace App\Models;
 
-class BasketDTO
+class OffersDTO
 {
+
     public function __construct(
-        public int $userId,
+        public int $id,
         public string $name,
-        public int $productId,
-        public int $quantity,
         public int $price,
         public string $previewPicture
     )
     {
 
     }
+
 }
