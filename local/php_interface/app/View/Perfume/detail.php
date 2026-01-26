@@ -4,6 +4,9 @@ use App\Services\BasketService;
 use Bitrix\Main\Page\Asset;
 use Bitrix\Main\Application;
 use App\Services\PerfumeService;
+use Siu\Reviews\Services\ReviewService;
+
+$token = bitrix_sessid();
 
 $route = Application::getInstance()->getRouter();
 
@@ -14,6 +17,9 @@ $asset->addJs('/local/php_interface/app/View/Perfume/js/ajax.js');
 
 $perfumeService = new PerfumeService();
 $basketService = new BasketService();
+$reviewService = new ReviewService();
+
+$reviews = $reviewService->get($result->id);
 
 $offers = $perfumeService->getOffers($result->id);
 $offerIds = array_column($offers, 'ID');
@@ -84,6 +90,43 @@ foreach ($offerQuantities as $item) {
     </div>
 
 
+    <div class="review-container">
+        <div class="review-form">
+            <form method="post" action="<?= $route->route('review_add', ['productId' => $result->id]) ?>">
+                <input type="hidden" name="sessid" value="<?= $token ?>">
+                <label>
+                    <textarea placeholder="Введите текст отзыва" name="review_text"></textarea>
+                </label>
+
+                <button class="review-btn" type="submit">Оставить отзыв</button>
+            </form>
+        </div>
+    </div>
+
 
 <!--    <a class="addToCart" href="--><?php //= $route->route('basket_add', ['productId' => $offers[0]->id]) ?><!--">Добавить в корзину</a>-->
 </div>
+
+<div class="reviews">
+    <?php if (empty($reviews)): ?>
+        <div class="no-reviews">
+            <div class="no-reviews-icon">💬</div>
+            <h3>Пока нет отзывов</h3>
+            <p>Будьте первым, кто оставит отзыв!</p>
+        </div>
+    <?php else: ?>
+        <?php foreach ($reviews as $review): ?>
+            <div class="review">
+                <div class="review-user">
+                    <span>👤</span>
+                    ID пользователя: <?= htmlspecialchars($review['USER_ID']) ?>
+                </div>
+                <div class="review-text">
+                    <?= htmlspecialchars($review['REVIEW_TEXT']) ?>
+                </div>
+            </div>
+        <?php endforeach; ?>
+    <?php endif; ?>
+</div>
+
+

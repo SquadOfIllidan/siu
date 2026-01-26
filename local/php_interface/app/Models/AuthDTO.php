@@ -9,6 +9,5 @@ class AuthDTO
         public string $password
     )
     {
-
     }
 }

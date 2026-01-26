@@ -1,10 +1,12 @@
 <?php
 use Bitrix\Main\Engine\ActionFilter\HttpMethod;
-use Bitrix\Main\Engine\Controller;
 use \Bitrix\Main\Engine\Response\Render;
 use App\Services\PerfumeService;
 
-class PerfumeController extends Controller
+require_once $_SERVER['DOCUMENT_ROOT'] . '/local/php_interface/app/Controllers/BaseController.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/local/php_interface/app/Controllers/BaseControllerInterface.php';
+
+class PerfumeController extends BaseController implements BaseControllerInterface
 {
 
     private PerfumeService $perfumeService;

@@ -8,8 +8,9 @@ use App\Models\PerfumesDTO;
 use App\Models\PerfumeDetailDTO;
 use App\Repositories\PerfumeRepository;
 use Bitrix\Main\IO\Path;
+use App\Services\BaseServiceInterface;
 
-class PerfumeService
+class PerfumeService implements BaseServiceInterface
 {
 
     private PerfumeRepository $perfumeRepository;

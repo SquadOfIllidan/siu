@@ -71,9 +71,11 @@ $asset->addJs('/local/php_interface/app/View/Basket/js/ajax.js');
             <a href="<?= $route->route('basket_removeAll') ?>" class="clear-basket">
                 <span style="margin-right: 8px;">🗑️</span> Очистить корзину
             </a>
-            <a href="#" class="checkout-btn">
-                Оформить заказ
-            </a>
+<!--            <a href="--><?php //= $route->route('order_add') ?><!--" class="checkout-btn">-->
+<!--                Оформить заказ-->
+<!--            </a>-->
+
+            <button class="checkout-btn">Оформить заказ</button>
         </div>
     <?php endif; ?>
 </div>
