@@ -5,8 +5,10 @@ use App\Models\BasketDTO;
 use Bitrix\Main\Engine\CurrentUser;
 use App\Repositories\BasketRepository;
 use App\Services\PerfumeService;
+use App\Services\BaseServiceInterface;
 
-class BasketService
+
+class BasketService implements BaseServiceInterface
 {
 
     private CurrentUser $user;

@@ -7,8 +7,9 @@ use Bitrix\Iblock\Elements\ElementSizeTable;
 use Bitrix\Main\ORM\Fields\Relations\Reference;
 use Bitrix\Main\FileTable;
 use Bitrix\Catalog\PriceTable;
+use App\Repositories\BaseRepositoryInterface;
 
-class PerfumeRepository
+class PerfumeRepository implements BaseRepositoryInterface
 {
     public function __construct()
     {

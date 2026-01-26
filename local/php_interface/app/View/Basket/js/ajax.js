@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', function (){
     let buttons = document.querySelectorAll('.remove-btn');
+    let buttonSuccess = document.querySelector('.checkout-btn');
     buttons.forEach(button => {
         button.addEventListener('click', function (){
 
@@ -24,17 +25,38 @@ document.addEventListener('DOMContentLoaded', function (){
                     if(!response.quantity){
                         itemElement.remove();
                     }
-                    checkBasketEmpty();
+                    checkBasketEmpty(showEmptyBasket);
                 },
                 onfailure: function (){
                     console.log('NO')
                 }
-            })
+            });
 
         })
     });
 
-    function checkBasketEmpty(){
+    buttonSuccess.addEventListener('click', () => {
+        console.log('Нажал');
+        let itemElement = document.querySelectorAll('.basket-item');
+        BX.ajax({
+            url: '/orders/add',
+            method: 'GET',
+            dataType: 'json',
+
+            onsuccess: () => {
+                itemElement.forEach(item => {
+                    item.remove();
+                })
+                checkBasketEmpty(successOrder)
+            },
+
+            onfailure: () => {
+                console.log('NO')
+            }
+        })
+    })
+
+    function checkBasketEmpty(callback){
         let basketItem = document.querySelectorAll('.basket-item');
         let basketItems = document.querySelector('.basket-items');
         let basketSummary = document.querySelector('.basket-summary');
@@ -50,7 +72,7 @@ document.addEventListener('DOMContentLoaded', function (){
             if(basketActions){
                 basketActions.remove();
             }
-            showEmptyBasket();
+            callback();
         }
     }
 
@@ -69,6 +91,23 @@ document.addEventListener('DOMContentLoaded', function (){
         </div>`;
 
             basketContainer.insertAdjacentHTML('beforeend', emptyHtml);
+        }
+    }
+
+    let successOrder = () => {
+        let basketContainer = document.querySelector('.basket-container');
+        let basketEmpty = document.querySelector('.basket-empty');
+
+        if(basketEmpty){
+            basketEmpty.style.display = 'block';
+        }
+        else {
+            let successOrderHtml = `<div class="basket-empty">
+            <div class="basket-empty-icon">🛒</div>
+            <h1 class="basket-empty-text">Вы успешно оформили заказ!</h1>
+            <a href="/perfumes" class="continue-shopping">Продолжить покупки</a>
+        </div>`;
+            basketContainer.insertAdjacentHTML('beforeend', successOrderHtml);
         }
     }
 })

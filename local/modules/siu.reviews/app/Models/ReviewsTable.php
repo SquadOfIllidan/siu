@@ -1,22 +1,14 @@
 <?php
-
-namespace App\Models;
-
+namespace Siu\Reviews\Models;
 use Bitrix\Main\ORM\Data\DataManager;
 use Bitrix\Main\ORM\Fields\IntegerField;
 use Bitrix\Main\ORM\Fields\StringField;
-use App\Models\BaseTableInterface;
-
-class BasketTable extends DataManager implements BaseTableInterface
+class ReviewsTable extends DataManager
 {
-    public function __construct()
-    {
-
-    }
 
     public static function getTableName(): string
     {
-        return 'a_user_basket';
+        return 'a_user_reviews';
     }
 
     public static function getMap(): array
@@ -26,11 +18,8 @@ class BasketTable extends DataManager implements BaseTableInterface
             ->configurePrimary()
             ->configureAutocomplete(),
             (new IntegerField('USER_ID')),
-            (new StringField('NAME')),
             (new IntegerField('PRODUCT_ID')),
-            (new IntegerField('QUANTITY')),
-            (new IntegerField('PRICE')),
-            (new StringField('PREVIEW'))
+            (new StringField('REVIEW_TEXT'))
         ];
     }
 

@@ -1,12 +1,12 @@
 <?php
-use App\Models\BasketTable;
 use Bitrix\Main\Engine\ActionFilter\HttpMethod;
-use Bitrix\Main\Engine\Controller;
 use App\Services\BasketService;
 use Bitrix\Main\Context;
 use Bitrix\Main\Engine\Response\Json;
 
-class BasketController extends Controller
+require_once $_SERVER['DOCUMENT_ROOT'] . '/local/php_interface/app/Controllers/BaseController.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/local/php_interface/app/Controllers/BaseControllerInterface.php';
+class BasketController extends BaseController implements BaseControllerInterface
 {
 
     private BasketService $basketService;

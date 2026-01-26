@@ -1,11 +1,13 @@
 <?php
 
 use Bitrix\Main\Engine\ActionFilter\HttpMethod;
-use Bitrix\Main\Engine\Controller;
 use App\Services\UserService;
 use \Bitrix\Main\Engine\Response\Render;
 
-class UserController extends Controller
+require_once $_SERVER['DOCUMENT_ROOT'] . '/local/php_interface/app/Controllers/BaseController.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/local/php_interface/app/Controllers/BaseControllerInterface.php';
+
+class UserController extends BaseController implements BaseControllerInterface
 {
     private UserService $userService;
 
@@ -16,7 +18,7 @@ class UserController extends Controller
         $this->userService = new UserService();
     }
 
-    public function configureActions()
+    public function configureActions(): array
     {
         return [
             'toRegister' => [

@@ -3,11 +3,12 @@
 namespace App\Repositories;
 
 use App\Models\BasketTable;
+use App\Repositories\BaseRepositoryInterface;
 
-class BasketRepository
+class BasketRepository implements BaseRepositoryInterface
 {
 
-    public function get(int $userId)
+    public function get(int $userId): array
     {
         return BasketTable::query()
             ->where('USER_ID', $userId)

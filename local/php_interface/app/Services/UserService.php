@@ -2,12 +2,14 @@
 
 namespace App\Services;
 use App\Models\RegisterDTO;
+use App\Models\AuthDTO;
 use Bitrix\Main\Application;
 use Bitrix\Main\Request;
 use CUser;
 use Bitrix\Main\UserTable;
+use App\Services\BaseServiceInterface;
 
-class UserService
+class UserService implements BaseServiceInterface
 {
     protected Request $request;
     private CUser $user;
@@ -89,25 +91,28 @@ class UserService
 
     public function login(): array | bool
     {
-        $login = trim($this->request->getPost('authLogin'));
-        $password = trim($this->request->getPost('authPassword'));
+        $authDTO = new AuthDTO(
+            login: trim($this->request->getPost('authLogin')),
+            password: trim($this->request->getPost('authPassword'))
+        );
+
 
         $errors = [];
 
-        if(empty($login) || empty($password))
+        if(empty($authDTO->login) || empty($authDTO->password))
         {
             $errors[] = 'Все поля должны быть заполнены!';
         }
 
-        if(!empty($login) || !empty($password))
+        if(!empty($authDTO->login) || !empty($authDTO->password))
         {
             $userData = UserTable::query()
-                ->where('LOGIN', $login)
+                ->where('LOGIN', $authDTO->login)
                 ->enablePrivateFields()
                 ->setSelect(['ID', 'PASSWORD', 'LOGIN'])
                 ->fetch();
 
-            if(!$userData['LOGIN'] || !password_verify($password, $userData['PASSWORD']))
+            if(!$userData['LOGIN'] || !password_verify($authDTO->password, $userData['PASSWORD']))
             {
                 $errors[] = 'Неверный логин или пароль';
             }
@@ -120,7 +125,7 @@ class UserService
         }
 
 
-        return $this->user->Login($login, $password);
+        return $this->user->Login($authDTO->login, $authDTO->password);
     }
 
     public function logout(): void
