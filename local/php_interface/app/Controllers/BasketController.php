@@ -70,11 +70,28 @@ class BasketController extends BaseController implements BaseControllerInterface
         $this->basketService->remove($productId);
         $quantity = $this->basketService->getQuantity($productId);
 
-        return new Json([
-            'quantity' => $quantity['QUANTITY'],
-            'price' => $quantity['PRICE'],
-            'priceForOne' => $quantity['PRICE'] / $quantity['QUANTITY'],
-        ]);
+        $basket = $this->basketService->get();
+
+        $totalPrice = 0;
+        foreach ($basket as $item) {
+            $totalPrice += $item->price;
+        }
+
+        if ($quantity && isset($quantity['QUANTITY'])) {
+            return new Json([
+                'quantity' => $quantity['QUANTITY'],
+                'price' => $quantity['PRICE'],
+                'priceForOne' => $quantity['PRICE'] / $quantity['QUANTITY'],
+                'totalPrice' => $totalPrice
+            ]);
+        } else {
+            return new Json([
+                'quantity' => 0,
+                'price' => 0,
+                'priceForOne' => 0,
+                'totalPrice' => $totalPrice
+            ]);
+        }
     }
 
     public function removeAllAction(): void

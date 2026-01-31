@@ -4,9 +4,20 @@ namespace App\Repositories;
 
 use App\Models\BasketTable;
 use App\Repositories\BaseRepositoryInterface;
+use App\Services\PerfumeService;
+
 
 class BasketRepository implements BaseRepositoryInterface
 {
+
+    private PerfumeService $perfumeService;
+
+    public function __construct()
+    {
+
+        $this->perfumeService = new PerfumeService();
+
+    }
 
     public function get(int $userId): array
     {
@@ -19,6 +30,8 @@ class BasketRepository implements BaseRepositoryInterface
     public function add(int $userId, int $productId, int $price, string $name, string $preview): void
     {
         $item = $this->getByProductId($productId, $userId);
+
+
 
         if ($item) {
             $newQuantity = $item['QUANTITY'] + 1;
@@ -94,5 +107,36 @@ class BasketRepository implements BaseRepositoryInterface
             ])
             ->setSelect(['QUANTITY', 'ID', 'PRODUCT_ID', 'PRICE'])
             ->fetchAll() ?: [];
+    }
+
+    public function addPresent(int $userId, int $productId, int $presentId, string $name): void
+    {
+        $present = $this->perfumeService->getPresent($productId);
+
+
+        $checkPresent = BasketTable::query()
+            ->where('NAME', $present['PRESENT_DESC_ADD'] . ' ' . $present['PRESENT_NAME'])
+            ->setSelect(['NAME'])
+            ->fetch() ?: [];
+
+        if ($present && empty($checkPresent)) {
+            BasketTable::add([
+                'PRODUCT_ID' => $presentId,
+                'USER_ID' => $userId,
+                'NAME' => $present['PRESENT_DESC_ADD'] . ' ' . $name,
+                'QUANTITY' => 1,
+                'PRICE' => 0,
+                'PREVIEW' => ''
+            ]);
+        }
+    }
+
+    public function checkPrice(int $userId, int $productId): array
+    {
+        return BasketTable::query()
+            ->where('USER_ID', $userId)
+            ->where('PRODUCT_ID', $productId)
+            ->setSelect(['PRICE'])
+            ->fetch() ?: [];
     }
 }

@@ -18,10 +18,13 @@ document.addEventListener('DOMContentLoaded', function (){
                 onsuccess: function (response){
                     productQuantity.innerText = 'Количество:' + ' ' + response.quantity;
                     productPrice.innerText = response.price;
-                    totalPrice.innerText = total - response.priceForOne + ' ' + '₽';
-                    if(!response.priceForOne){
-                        totalPrice.remove();
+
+
+
+                    if (response.totalPrice !== undefined){
+                        totalPrice.innerText = response.totalPrice + ' ' + '₽';
                     }
+
                     if(!response.quantity){
                         itemElement.remove();
                     }

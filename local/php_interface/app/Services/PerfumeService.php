@@ -50,7 +50,6 @@ class PerfumeService implements BaseServiceInterface
         $offers = $this->perfumeRepository->getOffers($productId);
 
 
-
         $offersDTO = [];
 
         foreach ($offers as $offer) {
@@ -127,5 +126,13 @@ class PerfumeService implements BaseServiceInterface
         }
 
         return $perfumeDetailDTO;
+    }
+
+    public function getPresent(int $offerId): array
+    {
+
+        return $this->perfumeRepository->getPresent($offerId);
+
+
     }
 }

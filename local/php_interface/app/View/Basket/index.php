@@ -1,11 +1,16 @@
 <?php
 use Bitrix\Main\Page\Asset;
 use Bitrix\Main\Application;
+use App\Services\BasketService;
 
 $route = Application::getInstance()->getRouter();
+
+
 $asset = Asset::getInstance();
 $asset->addCss('/local/php_interface/app/View/Basket/css/styles.css');
 $asset->addJs('/local/php_interface/app/View/Basket/js/ajax.js');
+
+$basketService = new BasketService();
 ?>
 
 <div class="basket-container">

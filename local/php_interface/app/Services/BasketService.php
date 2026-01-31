@@ -49,11 +49,21 @@ class BasketService implements BaseServiceInterface
     {
         $offer = $this->perfumeService->getOffer($productId);
         $this->basketRepository->add($this->userId, $offer->id, $offer->price, $offer->name, $offer->previewPicture);
+
+
+        $this->addPresent($productId);
     }
 
     public function remove(int $productId): void
     {
         $this->basketRepository->remove($this->userId, $productId);
+
+        $present = $this->perfumeService->getPresent($productId);
+        $price = $this->checkPrice($productId);
+
+        if((int)$price['PRICE'] < (int)$present['PRICE_FOR_PRESENT_ADD']){
+            $this->basketRepository->remove($this->userId, $present['PRESENT_ID']);
+        }
     }
 
     public function removeAll(): void
@@ -64,6 +74,27 @@ class BasketService implements BaseServiceInterface
     public function getQuantity(int | array $productId): array
     {
         return $this->basketRepository->getQuantity($productId, $this->userId);
+    }
+
+    public function addPresent(int $productId): void
+    {
+        $present = $this->perfumeService->getPresent($productId);
+
+        $price = $this->checkPrice($productId);
+
+
+
+        if((int)$price['PRICE'] >= (int)$present['PRICE_FOR_PRESENT_ADD']){
+            $this->basketRepository->addPresent($this->userId, $productId, $present['PRESENT_ID'], $present['PRESENT_NAME']);
+        }
+        else{
+            $this->basketRepository->remove($this->userId, $present['PRESENT_ID']);
+        }
+    }
+
+    public function checkPrice(int $productId): array
+    {
+        return $this->basketRepository->checkPrice($this->userId, $productId);
     }
 
 }
