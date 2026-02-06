@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 dataType: 'json',
                 onsuccess: function (response) {
                     console.log('YES');
-                    quantity.innerText = response.quantity;
+                    quantity.innerText = response.data.quantity;
                     const skuButton = document.querySelector(`.sku-select[data-offer-id="${productId}"]`);
                     if (skuButton) {
                         skuButton.setAttribute('data-offer-quantity', response.quantity);

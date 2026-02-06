@@ -5,6 +5,7 @@ use Bitrix\Main\Page\Asset;
 use Bitrix\Main\Application;
 use App\Services\PerfumeService;
 use Siu\Reviews\Services\ReviewService;
+use App\Services\BasketApiService;
 
 $token = bitrix_sessid();
 
@@ -18,6 +19,10 @@ $asset->addJs('/local/php_interface/app/View/Perfume/js/ajax.js');
 $perfumeService = new PerfumeService();
 $basketService = new BasketService();
 $reviewService = new ReviewService();
+$basketApiService = new BasketApiService();
+
+
+echo '<pre>';
 
 $reviews = $reviewService->get($result->id);
 
@@ -88,6 +93,7 @@ foreach ($offerQuantities as $item) {
         <span class="quantity_product"><?= $quantityMap[$offers[0]->id] ?></span>
         <button data-offer-id="<?= $offers[0]->id ?>" class="remove-btn">-</button>
     </div>
+
 
 
     <div class="review-container">

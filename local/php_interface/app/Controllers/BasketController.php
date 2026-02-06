@@ -19,33 +19,6 @@ class BasketController extends BaseController implements BaseControllerInterface
         $this->basketService = new BasketService();
     }
 
-    public function configureActions(): array
-    {
-
-        return [
-            'get' => [
-                'prefilters' => [
-                    new HttpMethod(['GET']),
-                ]
-            ],
-            'add' => [
-                'prefilters' => [
-                    new HttpMethod(['GET']),
-                ]
-            ],
-            'remove' => [
-                'prefilters' => [
-                    new HttpMethod(['GET']),
-                ],
-            ],
-            'removeAll' => [
-                'prefilters' => [
-                    new HttpMethod(['GET']),
-                ],
-            ],
-        ];
-
-    }
 
     public function getAction(): \Bitrix\Main\Engine\Response\Render\View
     {

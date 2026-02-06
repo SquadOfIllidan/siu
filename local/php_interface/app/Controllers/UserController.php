@@ -1,5 +1,4 @@
 <?php
-
 use Bitrix\Main\Engine\ActionFilter\HttpMethod;
 use App\Services\UserService;
 use \Bitrix\Main\Engine\Response\Render;
@@ -18,36 +17,6 @@ class UserController extends BaseController implements BaseControllerInterface
         $this->userService = new UserService();
     }
 
-    public function configureActions(): array
-    {
-        return [
-            'toRegister' => [
-                'prefilters' => [
-                    new HttpMethod(['GET'])
-                ],
-            ],
-            'register' => [
-                'prefilters' => [
-                    new HttpMethod(['POST'])
-                ],
-            ],
-            'toAuth' => [
-                'prefilters' => [
-                    new HttpMethod(['GET'])
-                ],
-            ],
-            'auth' => [
-                'prefilters' => [
-                    new HttpMethod(['POST'])
-                ],
-            ],
-            'logout' => [
-                'prefilters' => [
-                    new HttpMethod(['GET'])
-                ],
-            ],
-        ];
-    }
 
     public function toRegisterAction(): Render\View
     {
@@ -74,11 +43,13 @@ class UserController extends BaseController implements BaseControllerInterface
     public function authAction(): Render\View
     {
         $data = $this->userService->login();
+
         if(is_array($data)){
             return $this->renderView('/local/php_interface/app/View/User/Auth/index.php', [
                 'data' => $data
             ]);
         }
+
         LocalRedirect('/');
     }
 

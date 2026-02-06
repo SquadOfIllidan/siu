@@ -17,22 +17,6 @@ class PerfumeController extends BaseController implements BaseControllerInterfac
         $this->perfumeService = new PerfumeService();
     }
 
-    public function configureActions(): array
-    {
-        return [
-            'getPerfumes' => [
-                'prefilters' => [
-                    new HttpMethod(['GET'])
-                ]
-            ],
-            'getPerfumeDetail' => [
-                'prefilters' => [
-                    new HttpMethod(['GET'])
-                ]
-            ],
-        ];
-    }
-
 
     public function getPerfumesAction(int $sectionID): Render\View
     {
@@ -47,7 +31,7 @@ class PerfumeController extends BaseController implements BaseControllerInterfac
     {
         $result = $this->perfumeService->getDetailPerfume($elementCode);
 
-        return $this->renderView('/local/php_interface/app/View/Perfume/detail.php', [
+        return $this->renderView('/local/php_interface/app/View/Perfume/newDetail.php', [
             'result' => $result
         ]);
     }

@@ -34,11 +34,14 @@ class BasketRepository implements BaseRepositoryInterface
 
 
         if ($item) {
-            $newQuantity = $item['QUANTITY'] + 1;
-            BasketTable::update($item['ID'], [
-                'QUANTITY' => $newQuantity,
-                'PRICE' => $price * $newQuantity
-            ]);
+            $newQuantity = $item->getQuantity() + 1;
+            $item->set('QUANTITY', $newQuantity);
+            $item->set('PRICE', $price);
+            $item->save();
+//            BasketTable::update($item['ID'], [
+//                'QUANTITY' => $newQuantity,
+//                'PRICE' => $price * $newQuantity
+//            ]);
         } else {
             BasketTable::add([
                 'PRODUCT_ID' => $productId,
@@ -85,7 +88,7 @@ class BasketRepository implements BaseRepositoryInterface
                 ['USER_ID', $userId]
             ])
             ->setSelect(['QUANTITY', 'ID', 'PRICE'])
-            ->fetch() ?: [];
+            ->fetchObject() ?: [];
     }
 
 
