@@ -2,6 +2,7 @@
 
 use Bitrix\Main\Page\Asset;
 use Bitrix\Main\Application;
+use App\Services\OrderApiService;
 $route = Application::getInstance()->getRouter();
 
 
@@ -9,11 +10,13 @@ $asset = Asset::getInstance();
 $asset->addCss('/local/php_interface/app/View/Basket/css/newStyles.css');
 $asset->addJs('/local/php_interface/app/View/Orders/js/ajax.js');
 
+$orderApi = new OrderApiService();
 
+$deliveries = $orderApi->getDeliveries();
+$payments = $orderApi->getPayments();
 ?>
 
-<h1>Корзина</h1>
-
+<?php if (!empty($basket)): ?>
 <?php foreach ($basket as $item): ?>
     <div class="basket-item">
         <div class="product-image">
@@ -42,5 +45,42 @@ $asset->addJs('/local/php_interface/app/View/Orders/js/ajax.js');
     </div>
 <?php endforeach; ?>
 
+<div class="deliveries">
+    <label for="delivery-select">
+        <select class="delivery-select" id="delivery-select" name="delivery_id">
+            <option value="">-- Выберите доставку --</option>
+            <?php foreach ($deliveries as $delivery): ?>
+                <option value="<?= $delivery['ID'] ?>">
+                    <?= $delivery['NAME'] ?>
+                </option>
+            <?php endforeach; ?>
+        </select>
+    </label>
+</div>
 
-<button class="order-btn">Оформить заказ</button>
+    <div class="payments">
+        <label for="payment-select">
+            <select class="payment-select" id="payment-select" name="payment_id">
+                <option value="">-- Выберите способ оплаты --</option>
+                <?php foreach ($payments as $payment): ?>
+                    <option value="<?= $payment['ID'] ?>">
+                        <?= $payment['NAME'] ?>
+                    </option>
+                <?php endforeach; ?>
+            </select>
+        </label>
+    </div>
+
+    <label>
+        <input placeholder="Введите номер телефона" type="text" class="order-phone-input" required>
+    </label>
+
+    <button class="order-btn">Оформить заказ</button>
+
+<?php else: ?>
+    <div class="empty-basket">
+        Корзина пуста
+    </div>
+
+<?php endif; ?>
+

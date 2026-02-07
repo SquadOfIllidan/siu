@@ -1,6 +1,14 @@
 document.addEventListener('DOMContentLoaded', () => {
     let orderButton = document.querySelector('.order-btn');
-    let text = orderButton.innerHTML;
+    let selectDelivery = document.querySelector('.delivery-select');
+    let selectPayment = document.querySelector('.payment-select');
+    let phoneInput = document.querySelector('.order-phone-input');
+
+    orderButton.disabled = true;
+
+    phoneInput.addEventListener('input', () => {
+        orderButton.disabled = phoneInput.value === '';
+    })
 
     orderButton.addEventListener('click', () => {
         BX.ajax({
@@ -8,7 +16,9 @@ document.addEventListener('DOMContentLoaded', () => {
             method: 'POST',
             dataType: 'json',
             data: {
-                'text': text
+                'deliveryId': selectDelivery.value,
+                'paymentId': selectPayment.value,
+                'userPhone': phoneInput.value
             },
             onsuccess: () => {
                 console.log('YES');

@@ -20,8 +20,9 @@ class OrderApiController extends BaseController implements BaseControllerInterfa
 
     public function saveOrderAction(): array
     {
+        $selected = $this->request->getPostList()->toArray();
         $basket = $this->basketApiService->returnBasket();
-        return $this->orderApiService->saveOrder($basket, 2, 5, []);
+        return $this->orderApiService->saveOrder($basket, $selected['deliveryId'], $selected['paymentId'], $selected['userPhone']);
     }
 
 }

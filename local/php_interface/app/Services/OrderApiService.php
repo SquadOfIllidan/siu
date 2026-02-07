@@ -4,17 +4,21 @@ namespace App\Services;
 use Bitrix\Main\Application;
 use Bitrix\Main\Context;
 use Bitrix\Sale\Basket;
-use Bitrix\Sale\Delivery\Services\EmptyDeliveryService;
+use Bitrix\Sale\Delivery;
 use Bitrix\Sale\Delivery\Services\Manager;
+use Bitrix\Sale\Payment;
 use Bitrix\Sale\PaySystem;
 use Bitrix\Sale\Order;
+use Bitrix\Main\Engine\CurrentUser;
 class OrderApiService
 {
     private ?Order $order = null;
     private string $siteId;
+    private $user;
     public function __construct()
     {
         $this->siteId = Context::getCurrent()->getSite();
+        $this->user = CurrentUser::get();
     }
 
     public function createOrder(Basket $basket): void
@@ -42,11 +46,11 @@ class OrderApiService
         ];
     }
 
-    public function saveOrder(Basket $basket, int $deliveryId, int $paymentId, array $props = []): array
+    public function saveOrder(Basket $basket, int $deliveryId, int $paymentId, string $userPhone): array
     {
         $this->createOrder($basket);
 
-        $this->setProperty($props);
+        $this->setProperty($userPhone);
         $this->setShipment($deliveryId);
         $this->setPayment($paymentId);
 
@@ -67,8 +71,13 @@ class OrderApiService
         ];
     }
 
-    public function setProperty(array $props): void
+    public function setProperty(string $userPhone): void
     {
+        $props = [
+            'FIO' => $this->user->getFullName() ?? '',
+            'EMAIL' => $this->user->getEmail() ?? '',
+            'PHONE' => $userPhone
+        ];
         $propertyCollection = $this->order->getPropertyCollection();
         if(!empty($props)){
             foreach ($propertyCollection as $property) {
@@ -110,6 +119,38 @@ class OrderApiService
             'PAY_SYSTEM_ID' => $paySystemService->getField("PAY_SYSTEM_ID"),
             'PAY_SYSTEM_NAME' => $paySystemService->getField("NAME"),
         ));
+    }
+
+    public function getDeliveries(): array
+    {
+        $items = [];
+        $deliveries = Manager::getActiveList();
+
+        foreach ($deliveries as $delivery) {
+            $items[] = [
+                'ID' => $delivery['ID'],
+                'NAME' => $delivery['NAME'],
+            ];
+        }
+
+        return $items;
+    }
+
+    public function getPayments(): array
+    {
+        $items = [];
+
+        $payments = PaySystem\Manager::getList([
+            'select' => ['*']
+        ])->fetchAll();
+
+        foreach ($payments as $payment) {
+            $items[] = [
+                'ID' => $payment['ID'],
+                'NAME' => $payment['NAME'],
+            ];
+        }
+        return $items;
     }
 
 }

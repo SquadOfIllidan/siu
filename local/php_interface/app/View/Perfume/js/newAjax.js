@@ -10,10 +10,6 @@ document.addEventListener('DOMContentLoaded', () => {
             BX.ajax({
                 url: '/basket/add/' + productId,
                 method: 'POST',
-                // data: {
-                //     'test': 123,
-                //     'test2': 321
-                // },
                 dataType: 'json',
                 onsuccess: (response) => {
                     quantity.innerHTML = response.data.quantity
