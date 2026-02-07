@@ -7,6 +7,7 @@ $route = Application::getInstance()->getRouter();
 
 $asset = Asset::getInstance();
 $asset->addCss('/local/php_interface/app/View/Basket/css/newStyles.css');
+$asset->addJs('/local/php_interface/app/View/Orders/js/ajax.js');
 
 
 ?>

@@ -30,7 +30,7 @@ return function (RoutingConfigurator $routes) {
 
     $routes->prefix('orders')->group(function (RoutingConfigurator $routes) {
         $routes->get('add', [ActiveOrderController::class, 'addAction'])->name('order_add');
-        $routes->post('addApi', [ActiveOrderController::class, 'addApiAction'])->name('order_add_api');
+        $routes->post('addapi', [OrderApiController::class, 'saveOrderAction'])->name('order_add_api');
     });
 
     $routes->prefix('bitrix/admin')->group(function (RoutingConfigurator $routes) {

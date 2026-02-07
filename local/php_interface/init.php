@@ -7,6 +7,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/local/php_interface/app/Controllers/P
 require_once $_SERVER['DOCUMENT_ROOT'] . '/local/php_interface/app/Controllers/BasketController.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/local/php_interface/app/Controllers/BasketApiController.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/local/php_interface/app/Controllers/UserController.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/local/php_interface/app/Controllers/OrderApiController.php';
 
 $eventManager = EventManager::getInstance();
 $eventManager->addEventHandler('main', 'OnBeforeProlog', function (){

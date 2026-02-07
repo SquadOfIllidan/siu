@@ -50,6 +50,11 @@ class BasketApiService
         }
     }
 
+    public function returnBasket(): Basket
+    {
+        return $this->basket;
+    }
+
 
     public function getBasket(): array
     {
@@ -73,6 +78,7 @@ class BasketApiService
                     : 0,
                 'name' => $basketItem->getField('NAME'),
                 'currency' => $basketItem->getCurrency(),
+                'basket' => $this->basket
             ];
         }
         return $items;
