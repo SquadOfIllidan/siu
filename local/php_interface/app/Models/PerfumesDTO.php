@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-class PerfumesDTO
+readonly class PerfumesDTO
 {
 
     public function __construct(

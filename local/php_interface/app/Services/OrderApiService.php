@@ -10,6 +10,7 @@ use Bitrix\Sale\Payment;
 use Bitrix\Sale\PaySystem;
 use Bitrix\Sale\Order;
 use Bitrix\Main\Engine\CurrentUser;
+use App\Services\BasketApiService;
 class OrderApiService
 {
     private ?Order $order = null;
@@ -46,7 +47,7 @@ class OrderApiService
         ];
     }
 
-    public function saveOrder(Basket $basket, int $deliveryId, int $paymentId, string $userPhone): array
+    public function saveOrder(Basket $basket, string $userPhone, int $deliveryId = 1, int $paymentId = 1): array
     {
         $this->createOrder($basket);
 

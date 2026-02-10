@@ -6,11 +6,25 @@ document.addEventListener('DOMContentLoaded', () => {
 
     orderButton.disabled = true;
 
+    phoneInput.placeholder = '+7(000)000-00-00'
+
+    let phoneMask = IMask(phoneInput, {
+        mask: '+{7}(000)000-00-00'
+    });
+
+
     phoneInput.addEventListener('input', () => {
-        orderButton.disabled = phoneInput.value === '';
-    })
+        orderButton.disabled = phoneMask.unmaskedValue.length !== 11
+    });
+
 
     orderButton.addEventListener('click', () => {
+        if(selectDelivery.value === ''){
+            selectDelivery.value = 1;
+        }
+        if(selectPayment.value === ''){
+            selectPayment.value = 1;
+        }
         BX.ajax({
             url: '/orders/addapi',
             method: 'POST',

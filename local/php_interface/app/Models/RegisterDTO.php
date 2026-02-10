@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-class RegisterDTO
+readonly class RegisterDTO
 {
 
     public function __construct(

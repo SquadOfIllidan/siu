@@ -16,6 +16,9 @@ $deliveries = $orderApi->getDeliveries();
 $payments = $orderApi->getPayments();
 ?>
 
+<script src="https://unpkg.com/imask" defer></script>
+
+
 <?php if (!empty($basket)): ?>
 <?php foreach ($basket as $item): ?>
     <div class="basket-item">

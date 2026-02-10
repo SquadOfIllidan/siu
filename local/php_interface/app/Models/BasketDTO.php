@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-class BasketDTO
+readonly class BasketDTO
 {
     public function __construct(
         public int $userId,

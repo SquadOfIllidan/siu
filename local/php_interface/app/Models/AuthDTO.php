@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-class AuthDTO
+readonly class AuthDTO
 {
     public function __construct(
         public string $login,

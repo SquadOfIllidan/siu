@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-class OffersDTO
+readonly class OffersDTO
 {
 
     public function __construct(
