@@ -8,6 +8,7 @@ use Bitrix\Sale\Delivery;
 use Bitrix\Sale\Delivery\Services\Manager;
 use Bitrix\Sale\Payment;
 use Bitrix\Sale\PaySystem;
+use Bitrix\Sale\Internals\PaymentTable;
 use Bitrix\Sale\Order;
 use Bitrix\Main\Engine\CurrentUser;
 use App\Services\BasketApiService;
@@ -47,7 +48,7 @@ class OrderApiService
         ];
     }
 
-    public function saveOrder(Basket $basket, string $userPhone, int $deliveryId = 1, int $paymentId = 1): array
+    public function saveOrder(Basket $basket, string $userPhone, int $deliveryId, int $paymentId): array
     {
         $this->createOrder($basket);
 

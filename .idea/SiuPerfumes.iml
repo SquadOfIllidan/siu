@@ -5,6 +5,8 @@
       <sourceFolder url="file://$MODULE_DIR$/local/modules/siu.orders/app" isTestSource="false" packagePrefix="Siu\Orders\" />
       <sourceFolder url="file://$MODULE_DIR$/local/php_interface/app" isTestSource="false" packagePrefix="App\" />
       <sourceFolder url="file://$MODULE_DIR$/local/modules/siu.reviews/app" isTestSource="false" packagePrefix="Siu\Reviews\" />
+      <sourceFolder url="file://$MODULE_DIR$/local/components/siu.catalog.diffusers/lib" isTestSource="false" packagePrefix="Siu\Components\Diffusers\" />
+      <sourceFolder url="file://$MODULE_DIR$/local/components/siu.catalog.diffusers.detail/lib" isTestSource="false" packagePrefix="Siu\Components\Diffusers\Detail\" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/composer" />
     </content>
     <orderEntry type="inheritedJdk" />

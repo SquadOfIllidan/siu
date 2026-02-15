@@ -12,6 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 method: 'POST',
                 dataType: 'json',
                 onsuccess: (response) => {
+                    console.log('YES')
                     quantity.innerHTML = response.data.quantity
                     const skuButton = document.querySelector(`.sku-select[data-offer-id="${productId}"]`);
                     skuButton.dataset.offerQuantity = response.data.quantity

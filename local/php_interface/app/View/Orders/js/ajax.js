@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
             selectDelivery.value = 1;
         }
         if(selectPayment.value === ''){
-            selectPayment.value = 1;
+            selectPayment.value = 2;
         }
         BX.ajax({
             url: '/orders/addapi',

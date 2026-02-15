@@ -1,0 +1,76 @@
+.diffusers {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 30px;
+    padding: 20px;
+    max-width: 1400px;
+    margin: 0 auto;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+}
+
+.diffuser-card {
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.diffuser-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12);
+}
+
+.diffuser-picture {
+    width: 100%;
+    height: 220px;
+    overflow: hidden;
+    background: #f8f9fa;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.diffuser-picture a {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+.diffuser-picture img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.diffuser-card:hover .diffuser-picture img {
+    transform: scale(1.05);
+}
+
+.diffuser-name {
+    padding: 16px 16px 20px;
+    font-size: 18px;
+    font-weight: 600;
+    color: #2c3e50;
+    line-height: 1.4;
+    text-align: center;
+    border-top: 1px solid #edf2f7;
+    margin-top: auto;
+    background: linear-gradient(to bottom, #ffffff, #fafbfc);
+}
+
+/* Состояние загрузки или пустой список */
+.diffusers-loading,
+.diffusers-empty {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 60px 20px;
+    font-size: 16px;
+    color: #7f8c8d;
+    background: #f8f9fa;
+    border-radius: 12px;
+}

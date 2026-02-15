@@ -40,6 +40,11 @@ return function (RoutingConfigurator $routes) {
     $routes->prefix('reviews')->group(function (RoutingConfigurator $routes) {
         $routes->post('add/{productId}', [ReviewController::class, 'addAction'])->name('review_add');
     });
+
+    $routes->prefix('diffusers')->group(function (RoutingConfigurator $routes) {
+       $routes->get('{sectionId}', [DiffuserController::class, 'getAction'])->name('diffusers');
+       $routes->get('detail/{elementCode}', [DiffuserDetailController::class, 'getDetailAction'])->name('diffusers_detail');
+    });
 };
 
 

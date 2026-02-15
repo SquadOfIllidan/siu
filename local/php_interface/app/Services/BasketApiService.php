@@ -63,7 +63,7 @@ class BasketApiService
 
         $items = [];
         foreach ($this->basket->getBasketItems() as $basketItem) {
-            $picture = $this->getProductPicture($basketItem->getProductId());
+            $picture = $this->getProductPicture($basketItem->getProductId()) ?? '';
             $picturePath = $picture['PREVIEW_SUBDIR'] . '/' . $picture['PREVIEW_FILENAME'];
             $items[] = [
                 'id' => $basketItem->getId(),

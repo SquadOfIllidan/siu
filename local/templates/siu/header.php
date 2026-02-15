@@ -118,6 +118,7 @@ endif; ?>
                             <div class="dropdown-content">
                                 <a href="<?= $route->route('perfumes', ['sectionID' => 16]) ?>">Сладкие парфюмы</a>
                                 <a href="<?= $route->route('perfumes', ['sectionID' => 17]) ?>">Нейтральные парфюмы</a>
+                                <a href="<?= $route->route('diffusers', ['sectionId' => 18]) ?>">Диффузоры</a>
                             </div>
                         </div>
                     </li>
