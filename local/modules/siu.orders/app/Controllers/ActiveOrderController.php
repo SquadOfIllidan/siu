@@ -3,14 +3,12 @@
 namespace Siu\Orders\Controllers;
 
 use Bitrix\Main\Engine\ActionFilter\HttpMethod;
-use Bitrix\Main\Engine\Controller;
-use Bitrix\Main\Engine\Response\Render\View;
 use Siu\Orders\Services\ActiveOrderService;
 
 require_once $_SERVER['DOCUMENT_ROOT'] . '/local/php_interface/app/Controllers/BaseController.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/local/php_interface/app/Controllers/BaseControllerInterface.php';
 
-class ActiveOrderController extends \BaseController implements \BaseControllerInterface
+class ActiveOrderController extends \Siu\Controllers\Controllers\BaseController implements \Siu\Controllers\Controllers\BaseControllerInterface
 {
 
     private ActiveOrderService $orderService;

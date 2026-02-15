@@ -1,10 +1,9 @@
 <?php
-use Bitrix\Main\Engine\ActionFilter\HttpMethod;
-use \Bitrix\Main\Engine\Response\Render;
-use App\Services\PerfumeService;
 
-require_once $_SERVER['DOCUMENT_ROOT'] . '/local/php_interface/app/Controllers/BaseController.php';
-require_once $_SERVER['DOCUMENT_ROOT'] . '/local/php_interface/app/Controllers/BaseControllerInterface.php';
+namespace Siu\Controllers\Controllers;
+
+use App\Services\PerfumeService;
+use Bitrix\Main\Engine\Response\Render;
 
 class PerfumeController extends BaseController implements BaseControllerInterface
 {

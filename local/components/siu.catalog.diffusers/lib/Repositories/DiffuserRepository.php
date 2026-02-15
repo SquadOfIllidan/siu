@@ -4,7 +4,6 @@ namespace Siu\Components\Diffusers\Repositories;
 
 use App\Repositories\BaseRepositoryInterface;
 use Bitrix\Catalog\PriceTable;
-use Bitrix\Iblock\ElementPropertyTable;
 use Bitrix\Iblock\Elements\ElementCatalogTable;
 use Bitrix\Main\FileTable;
 use Bitrix\Main\ORM\Fields\Relations\Reference;

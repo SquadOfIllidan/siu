@@ -1,8 +1,12 @@
 <?php
 
-use Bitrix\Main\Engine\Response\Render\View;
+namespace Siu\Controllers\Controllers\components;
 
-class DiffuserDetailController extends \BaseController implements \BaseControllerInterface
+use Bitrix\Main\Engine\Response\Render\View;
+use Siu\Controllers\Controllers\BaseController;
+use Siu\Controllers\Controllers\BaseControllerInterface;
+
+class DiffuserDetailController extends BaseController implements BaseControllerInterface
 {
     public function getDetailAction(string $elementCode): View
     {

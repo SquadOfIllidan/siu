@@ -3,10 +3,9 @@
 namespace Siu\Orders\Controllers;
 
 use Bitrix\Main\Engine\ActionFilter\HttpMethod;
-use Bitrix\Main\Engine\Response\Render\View;
 use Siu\Orders\Services\CompletedOrderService;
 
-class CompletedOrderController extends \BaseController implements \BaseControllerInterface
+class CompletedOrderController extends \Siu\Controllers\Controllers\BaseController implements \Siu\Controllers\Controllers\BaseControllerInterface
 {
 
     private CompletedOrderService $completedOrderService;

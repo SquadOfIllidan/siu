@@ -1,8 +1,10 @@
 <?php
 
-use Bitrix\Main\Engine\ActionFilter\HttpMethod;
-use Bitrix\Main\Engine\Controller;
+namespace Siu\Controllers\Controllers;
+
 use Bitrix\Main\Context;
+use Bitrix\Main\Engine\Controller;
+
 abstract class BaseController extends Controller
 {
     protected array $postData;

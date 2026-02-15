@@ -1,6 +1,9 @@
 <?php
 
-class DiffuserController extends \BaseController implements \BaseControllerInterface
+namespace Siu\Controllers\Controllers\components;
+use Siu\Controllers\Controllers\BaseController;
+use Siu\Controllers\Controllers\BaseControllerInterface;
+class DiffuserController extends BaseController implements BaseControllerInterface
 {
     public function __construct()
     {

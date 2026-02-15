@@ -1,11 +1,11 @@
 <?php
-use Bitrix\Main\Engine\ActionFilter\HttpMethod;
+
+namespace Siu\Controllers\Controllers;
+
 use App\Services\BasketService;
 use Bitrix\Main\Context;
 use Bitrix\Main\Engine\Response\Json;
 
-require_once $_SERVER['DOCUMENT_ROOT'] . '/local/php_interface/app/Controllers/BaseController.php';
-require_once $_SERVER['DOCUMENT_ROOT'] . '/local/php_interface/app/Controllers/BaseControllerInterface.php';
 class BasketController extends BaseController implements BaseControllerInterface
 {
 

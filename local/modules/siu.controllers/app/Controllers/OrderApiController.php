@@ -1,15 +1,18 @@
 <?php
-use App\Services\OrderApiService;
+
+namespace Siu\Controllers\Controllers;
+
 use App\Services\BasketApiService;
-use Bitrix\Main\Request;
+use App\Services\OrderApiService;
 use Bitrix\Main\Context;
-use Bitrix\Main\Error;
+
 class OrderApiController extends BaseController implements BaseControllerInterface
 {
 
     private OrderApiService $orderApiService;
     private BasketApiService $basketApiService;
     protected $request;
+
     public function __construct()
     {
         parent::__construct();
@@ -20,9 +23,13 @@ class OrderApiController extends BaseController implements BaseControllerInterfa
 
     public function saveOrderAction(): array
     {
-
         $basket = $this->basketApiService->returnBasket();
-        return $this->orderApiService->saveOrder($basket, $this->postData['userPhone'], $this->postData['deliveryId'], $this->postData['paymentId']);
+        return $this->orderApiService->saveOrder(
+            $basket,
+            $this->postData['userPhone'],
+            $this->postData['deliveryId'],
+            $this->postData['paymentId']
+        );
     }
 
 }

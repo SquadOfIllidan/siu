@@ -1,10 +1,9 @@
 <?php
-use Bitrix\Main\Engine\ActionFilter\HttpMethod;
-use App\Services\UserService;
-use \Bitrix\Main\Engine\Response\Render;
 
-require_once $_SERVER['DOCUMENT_ROOT'] . '/local/php_interface/app/Controllers/BaseController.php';
-require_once $_SERVER['DOCUMENT_ROOT'] . '/local/php_interface/app/Controllers/BaseControllerInterface.php';
+namespace Siu\Controllers\Controllers;
+
+use App\Services\UserService;
+use Bitrix\Main\Engine\Response\Render;
 
 class UserController extends BaseController implements BaseControllerInterface
 {
@@ -27,7 +26,7 @@ class UserController extends BaseController implements BaseControllerInterface
     {
         $data = $this->userService->register();
 
-        if(is_array($data)){
+        if (is_array($data)) {
             return $this->renderView('/local/php_interface/app/View/User/Reg/index.php', [
                 'data' => $data
             ]);
@@ -44,7 +43,7 @@ class UserController extends BaseController implements BaseControllerInterface
     {
         $data = $this->userService->login();
 
-        if(is_array($data)){
+        if (is_array($data)) {
             return $this->renderView('/local/php_interface/app/View/User/Auth/index.php', [
                 'data' => $data
             ]);

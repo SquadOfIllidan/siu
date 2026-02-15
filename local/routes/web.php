@@ -1,5 +1,13 @@
 <?php
+
 use Bitrix\Main\Routing\RoutingConfigurator;
+use Siu\Controllers\Controllers\BasketApiController;
+use Siu\Controllers\Controllers\BasketController;
+use Siu\Controllers\Controllers\components\DiffuserController;
+use Siu\Controllers\Controllers\components\DiffuserDetailController;
+use Siu\Controllers\Controllers\OrderApiController;
+use Siu\Controllers\Controllers\PerfumeController;
+use Siu\Controllers\Controllers\UserController;
 use Siu\Orders\Controllers\ActiveOrderController;
 use Siu\Reviews\Controllers\ReviewController;
 

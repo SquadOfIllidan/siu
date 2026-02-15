@@ -1,10 +1,8 @@
 <?php
-use Bitrix\Main\Engine\ActionFilter\HttpMethod;
-use Bitrix\Main\Engine\CurrentUser;
+
+namespace Siu\Controllers\Controllers;
 use App\Services\BasketApiService;
-use Bitrix\Main\Request;
 use Bitrix\Main\Context;
-use Bitrix\Main\Error;
 
 class BasketApiController extends BaseController implements BaseControllerInterface
 {
