@@ -16,7 +16,6 @@ class SiuCatalogDiffusersDetail extends CBitrixComponent
     }
     public function onPrepareComponentParams($arParams): array
     {
-        $arParams['SECTION_ID'] = (int)$arParams['SECTION_ID'];
         $arParams['CACHE_TIME'] = (int)($arParams['CACHE_TIME'] ?? 3600);
         return $arParams;
     }

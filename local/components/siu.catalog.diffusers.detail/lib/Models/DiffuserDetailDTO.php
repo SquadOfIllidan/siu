@@ -2,7 +2,7 @@
 
 namespace Siu\Components\Diffusers\Detail\Models;
 
-class DiffuserDetailDTO
+readonly class DiffuserDetailDTO
 {
     public function __construct(
         public int $id,

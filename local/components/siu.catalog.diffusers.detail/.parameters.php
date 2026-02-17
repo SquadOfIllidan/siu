@@ -10,11 +10,6 @@ $arComponentParameters = [
         ],
     ],
     "PARAMETERS" => [
-        "SECTION_ID" => [
-            "PARENT" => "BASE",
-            "NAME" => "ID секции",
-            "TYPE" => "STRING"
-        ],
         "ELEMENT_CODE" => [
             "PARENT" => "BASE",
             "NAME" => "Код элемента",
