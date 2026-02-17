@@ -13,5 +13,6 @@ readonly class DiffuserDetailDTO
     )
     {
 
+
     }
 }
