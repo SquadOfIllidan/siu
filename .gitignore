@@ -11,4 +11,4 @@ images
 upload
 vendor
 
-!.idea
+.idea/
