@@ -245,3 +245,16 @@ select {
     color: #7f8c8d;
     font-weight: 500;
 }
+
+.total-price {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    font-size: 28px;
+    font-weight: 700;
+    padding: 20px 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+    text-align: center;
+    max-width: 400px;
+    margin: 20px auto;
+}

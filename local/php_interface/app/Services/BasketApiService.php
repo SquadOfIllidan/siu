@@ -15,6 +15,7 @@ use Bitrix\Sale\Fuser;
 use Bitrix\Sale\ProductTable;
 use Bitrix\Iblock\Elements\ElementOffersTable;
 use Bitrix\Iblock\Elements\ElementCatalogTable;
+use Bitrix\Sale\Discount\Gift\Manager;
 use App\Services\OrderApiService;
 
 class BasketApiService
@@ -64,6 +65,7 @@ class BasketApiService
         $totalPrice = 0;
         $items = [];
         foreach ($this->basket->getBasketItems() as $basketItem) {
+
             $picture = $this->getProductPictureOffers($basketItem->getProductId());
             if(!$picture){
                 $picture = $this->getProductPictureCatalog($basketItem->getProductId());
@@ -98,17 +100,17 @@ class BasketApiService
                 'basket' => $this->basket
             ];
         }
-        if($totalPrice > 0){
-            $items['total_price'] = $totalPrice;
-        }
-        return $items;
+
+        return [
+            'items' => $items,
+            'total_price' => $totalPrice,
+        ];
     }
 
     public function addToBasketApi(int $productId, $quantity = 1): array
     {
         $existingItem = null;
         $items = $this->basket->getBasketItems();
-
 
         foreach ($items as $item) {
             if ($item->getProductId() == $productId) {
@@ -144,7 +146,7 @@ class BasketApiService
         return [
             'success' => true,
             'message' => 'Товар добавлен в корзину',
-            'quantity' => $existingItem->getQuantity()
+            'quantity' => $existingItem->getQuantity(),
         ];
     }
 

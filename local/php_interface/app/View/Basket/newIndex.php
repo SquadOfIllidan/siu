@@ -3,8 +3,11 @@
 use Bitrix\Main\Page\Asset;
 use Bitrix\Main\Application;
 use App\Services\OrderApiService;
+use App\Services\BasketApiService;
+use Bitrix\Sale\Discount\Gift\Manager;
 $route = Application::getInstance()->getRouter();
 
+$basketApi = new BasketApiService();
 
 $asset = Asset::getInstance();
 $asset->addCss('/local/php_interface/app/View/Basket/css/newStyles.css');
@@ -15,13 +18,23 @@ $orderApi = new OrderApiService();
 $deliveries = $orderApi->getDeliveries();
 $payments = $orderApi->getPayments();
 
+//$giftManager = Manager::getInstance()->setUserId(\Bitrix\Main\Engine\CurrentUser::get()->getId());
+//$giftCollections = $giftManager->getCollectionsByBasket($basketApi->returnBasket());
+
+echo '<pre>';
+//foreach ($giftCollections as $giftCollection) {
+//    foreach ($giftCollection as $gift) {
+//        print_r($gift->getProductId());
+//    }
+//}
+
 ?>
 
 <script src="https://unpkg.com/imask" defer></script>
 
 
-<?php if (!empty($basket)): ?>
-<?php foreach ($basket as $item): ?>
+<?php if (!empty($basket['items'])): ?>
+<?php foreach ($basket['items'] as $item): ?>
     <div class="basket-item">
         <div class="product-image">
             <img src="<?= $item['picture'] ?>" alt="picture">
