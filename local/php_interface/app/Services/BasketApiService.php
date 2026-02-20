@@ -14,6 +14,7 @@ use Bitrix\Sale\Order;
 use Bitrix\Sale\Fuser;
 use Bitrix\Sale\ProductTable;
 use Bitrix\Iblock\Elements\ElementOffersTable;
+use Bitrix\Iblock\Elements\ElementCatalogTable;
 use App\Services\OrderApiService;
 
 class BasketApiService
@@ -60,11 +61,27 @@ class BasketApiService
     {
         $this->orderApiService->applyDiscountsToBasket($this->basket);
 
-
+        $totalPrice = 0;
         $items = [];
         foreach ($this->basket->getBasketItems() as $basketItem) {
-            $picture = $this->getProductPicture($basketItem->getProductId()) ?? '';
-            $picturePath = $picture['PREVIEW_SUBDIR'] . '/' . $picture['PREVIEW_FILENAME'];
+            $picture = $this->getProductPictureOffers($basketItem->getProductId());
+            if(!$picture){
+                $picture = $this->getProductPictureCatalog($basketItem->getProductId());
+            }
+            if($picture){
+                $picturePath = $picture['PREVIEW_SUBDIR'] . '/' . $picture['PREVIEW_FILENAME'];
+            }
+            else {
+                $picturePath = '';
+            }
+            if($basketItem->getQuantity() > 0){
+                if($basketItem->getDiscountPrice() > 0){
+                    $totalPrice += $basketItem->getDiscountPrice() * $basketItem->getQuantity();
+                }
+                else{
+                    $totalPrice += $basketItem->getBasePrice() * $basketItem->getQuantity();
+                }
+            }
             $items[] = [
                 'id' => $basketItem->getId(),
                 'PRODUCT_ID' => $basketItem->getProductId(),
@@ -80,6 +97,9 @@ class BasketApiService
                 'currency' => $basketItem->getCurrency(),
                 'basket' => $this->basket
             ];
+        }
+        if($totalPrice > 0){
+            $items['total_price'] = $totalPrice;
         }
         return $items;
     }
@@ -166,7 +186,7 @@ class BasketApiService
         ];
     }
 
-    public function getProductPicture(int $productId): array
+    public function getProductPictureOffers(int $productId): array
     {
         return ElementOffersTable::query()
             ->where('ID', $productId)
@@ -185,6 +205,27 @@ class BasketApiService
                     ['join_type' => 'LEFT']
                 )
             )
-            ->fetch();
+            ->fetch() ?: [];
+    }
+    public function getProductPictureCatalog(int $productId): array
+    {
+        return ElementCatalogTable::query()
+            ->where('ID', $productId)
+            ->setSelect([
+                'PREVIEW_PICTURE',
+                'PREVIEW_SUBDIR' => 'PREVIEW_FILE.SUBDIR',
+                'PREVIEW_FILENAME' => 'PREVIEW_FILE.FILE_NAME',
+            ])
+            ->registerRuntimeField(
+                new Reference(
+                    'PREVIEW_FILE',
+                    FileTable::class,
+                    [
+                        '=this.PREVIEW_PICTURE' => 'ref.ID'
+                    ],
+                    ['join_type' => 'LEFT']
+                )
+            )
+            ->fetch() ?: [];
     }
 }

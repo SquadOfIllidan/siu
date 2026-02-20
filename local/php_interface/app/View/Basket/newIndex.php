@@ -14,6 +14,7 @@ $orderApi = new OrderApiService();
 
 $deliveries = $orderApi->getDeliveries();
 $payments = $orderApi->getPayments();
+
 ?>
 
 <script src="https://unpkg.com/imask" defer></script>
@@ -47,6 +48,10 @@ $payments = $orderApi->getPayments();
         </div>
     </div>
 <?php endforeach; ?>
+
+<div class="total-price">
+    Итоговая цена: <?= $basket['total_price'] ?>
+</div>
 
 <div class="deliveries">
     <label for="delivery-select">
