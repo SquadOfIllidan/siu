@@ -15,7 +15,6 @@ $asset->addCss(SITE_TEMPLATE_PATH . '/css/styles.css');
 $asset->addJs(SITE_TEMPLATE_PATH . '/js/bundle.js');
 
 $user = CurrentUser::get();
-
 ?>
 
 <!DOCTYPE html>
@@ -86,6 +85,8 @@ $user = CurrentUser::get();
     SITE_TEMPLATE_PATH ?>/assets/fonts/new-baskerville.woff2" as="font" type="font/woff2" crossorigin>
 </head>
 
+
+
 <body class="page__body">
 <?php if($user->getLogin()): ?>
 <?php
@@ -97,6 +98,8 @@ if ($user->isAdmin()): ?>
 <?php
 endif; ?>
 <?php endif; ?>
+
+
 
 <div class="page__wrapper wrapper">
 
@@ -144,4 +147,16 @@ endif; ?>
     </header>
 
 
+    <?$APPLICATION->IncludeComponent(
+	"bitrix:breadcrumb", 
+	".default", 
+	[
+		"START_FROM" => "0",
+		"PATH" => "",
+		"SITE_ID" => "s1",
+		"COMPONENT_TEMPLATE" => ".default"
+	],
+	false
+);?>
+    <pre><? print_r($APPLICATION->GetNavChain()); ?></pre>
     <main class="page__main">
